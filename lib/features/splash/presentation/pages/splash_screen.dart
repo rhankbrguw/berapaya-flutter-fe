@@ -1,3 +1,4 @@
+// lib\features\splash\presentation\pages\splash_screen.dart
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../../../onboarding/presentation/pages/onboarding_screen.dart';
