@@ -1,3 +1,4 @@
+// lib\features\onboarding\presentation\pages\onboarding_screen.dart
 import 'package:flutter/material.dart';
 import '../../../authentication/presentation/pages/login_screen.dart';
 import '../../domain/entities/onboarding_content.dart';
