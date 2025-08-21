@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app/config/theme/app_theme.dart';
+import 'features/splash/presentation/pages/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,11 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Berapaya',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const Scaffold(
-        body: Center(
-          child: Text('Setup Complete!'),
-        ),
-      ),
+      home: const SplashScreen(),
     );
   }
 }
