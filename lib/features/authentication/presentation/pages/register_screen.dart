@@ -1,3 +1,4 @@
+// \lib\features\authentication\presentation\pages\register_screen.dart
 import 'package:flutter/material.dart';
 import '../widgets/auth_button.dart';
 import '../widgets/custom_text_field.dart';
