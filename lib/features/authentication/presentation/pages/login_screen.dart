@@ -1,5 +1,5 @@
-// \lib\features\authentication\presentation\pages\login_screen.dart
 import 'package:flutter/material.dart';
+import '../../../main_app/presentation/pages/main_screen.dart';
 import 'register_screen.dart';
 import '../widgets/auth_button.dart';
 import '../widgets/custom_text_field.dart';
@@ -48,7 +48,13 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 32),
                     AuthButton(
                       text: "Selanjutnya",
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainScreen()),
+                        );
+                      },
                     ),
                     const SizedBox(height: 24),
                     Row(
