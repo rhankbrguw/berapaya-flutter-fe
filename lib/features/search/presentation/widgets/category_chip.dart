@@ -12,16 +12,23 @@ class CategoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.grey.shade300),
+          border: Border.all(
+            color: theme.dividerColor,
+          ),
         ),
-        child: Text(label),
+        child: Text(
+          label,
+          style: theme.textTheme.bodyMedium,
+        ),
       ),
     );
   }

@@ -6,15 +6,17 @@ class HistoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withAlpha(20),
+            color: theme.colorScheme.shadow.withAlpha(20),
             spreadRadius: 1,
             blurRadius: 10,
           ),
@@ -26,33 +28,49 @@ class HistoryCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 "25 Agustus 2025",
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface.withAlpha(150),
+                  fontSize: 12,
+                ),
               ),
               Text(
                 "Rp370.000",
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: theme.colorScheme.primary,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
               ),
             ],
           ),
-          const Divider(height: 24),
-          const Text(
+          Divider(
+            height: 24,
+            color: theme.dividerColor,
+          ),
+          Text(
             "Nyeri kepala dan dada",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: theme.colorScheme.onSurface,
+            ),
           ),
           const SizedBox(height: 8),
           Row(
             children: [
-              const Icon(Iconsax.hospital, size: 16, color: Colors.grey),
+              Icon(
+                Iconsax.hospital,
+                size: 16,
+                color: theme.colorScheme.onSurface.withAlpha(150),
+              ),
               const SizedBox(width: 8),
-              const Text(
+              Text(
                 "RS Ukrida",
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface.withAlpha(150),
+                ),
               ),
             ],
           ),

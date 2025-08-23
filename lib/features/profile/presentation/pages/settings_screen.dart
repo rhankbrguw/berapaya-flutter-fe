@@ -13,9 +13,9 @@ class SettingsScreen extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: theme.colorScheme.surfaceContainerHighest,
       appBar: AppBar(
-        backgroundColor: colorScheme.surface,
+       backgroundColor: theme.colorScheme.surfaceContainerHighest,
         leading: IconButton(
           icon: Icon(Iconsax.arrow_left_2, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),

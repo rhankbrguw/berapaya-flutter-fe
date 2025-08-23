@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../core/constants/color_constants.dart';
 
 class AppTheme {
@@ -14,10 +15,13 @@ class AppTheme {
         secondary: AppColors.secondaryTeal,
         tertiary: AppColors.accentBlue,
         onPrimary: AppColors.white,
-        onSecondary: AppColors.white,
         error: AppColors.redError,
         surface: AppColors.white,
         onSurface: AppColors.darkestText,
+        shadow: AppColors.grey,
+      ).copyWith(
+        surfaceContainerHighest: AppColors.lightGrey,
+        outline: AppColors.neutralGrey,
       ),
       textTheme:
           GoogleFonts.poppinsTextTheme(ThemeData.light().textTheme).copyWith(
