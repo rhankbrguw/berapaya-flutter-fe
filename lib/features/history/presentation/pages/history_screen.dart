@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+
 import '../widgets/history_card.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -11,6 +12,7 @@ class HistoryScreen extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
     final ColorScheme colorScheme = theme.colorScheme;
 
+    // TODO: Replace with actual backend data
     final bool hasHistory = true;
 
     return Scaffold(
@@ -55,14 +57,14 @@ class HistoryScreen extends StatelessWidget {
             "Belum Ada Riwayat",
             style: textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
-              color: theme.colorScheme.onSurface.withOpacity(0.6),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 8),
           Text(
             "Hasil estimasi Anda akan muncul di sini.",
-            style: textTheme.bodyMedium
-                ?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.6)),
+            style: textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
           ),
         ],
       ),

@@ -59,7 +59,7 @@ class HospitalRecommendationScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: theme.primaryColor.withOpacity(0.05),
+            color: theme.primaryColor.withValues(alpha: 0.05),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
@@ -91,7 +91,7 @@ class HospitalRecommendationScreen extends StatelessWidget {
                 Text(
                   "Jl. Arjuna Utara No.6, RT.6/RW.2, Duri Kepa, Kec. Kb. Jeruk, Kota Jakarta Barat...",
                   style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurface.withOpacity(0.6),
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

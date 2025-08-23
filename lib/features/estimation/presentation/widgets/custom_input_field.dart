@@ -30,8 +30,8 @@ class CustomInputField extends StatelessWidget {
           cursorColor: theme.colorScheme.tertiary,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle:
-                TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.4)),
+            hintStyle: TextStyle(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
             filled: true,
             fillColor: theme.colorScheme.surface,
             border: OutlineInputBorder(

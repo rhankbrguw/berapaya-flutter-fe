@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+
 import '../../../main_app/presentation/pages/main_screen.dart';
 
 class EstimationResultScreen extends StatelessWidget {
@@ -33,8 +34,8 @@ class EstimationResultScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               "Berikut adalah hasil estimasi biaya layanan kesehatan anda",
-              style: textTheme.bodyMedium
-                  ?.copyWith(color: colorScheme.onSurface.withOpacity(0.6)),
+              style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurface.withValues(alpha: 0.6)),
             ),
             const SizedBox(height: 24),
             Text(
@@ -60,7 +61,7 @@ class EstimationResultScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: theme.primaryColor.withOpacity(0.05),
+            color: theme.primaryColor.withValues(alpha: 0.05),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
@@ -77,7 +78,7 @@ class EstimationResultScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: theme.colorScheme.tertiary.withOpacity(0.1),
+              color: theme.colorScheme.tertiary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: _buildCostRow(context, theme, "Total", "Rp370.000",
@@ -119,8 +120,8 @@ class EstimationResultScreen extends StatelessWidget {
               if (subtext != null)
                 Text(
                   subtext,
-                  style: textTheme.bodySmall
-                      ?.copyWith(color: colorScheme.onSurface.withOpacity(0.6)),
+                  style: textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurface.withValues(alpha: 0.6)),
                 ),
             ],
           )

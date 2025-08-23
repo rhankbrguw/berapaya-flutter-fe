@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+
 import '../widgets/category_chip.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -74,7 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
           selectedColor: theme.colorScheme.onPrimary,
           color: theme.colorScheme.primary,
           fillColor: theme.colorScheme.tertiary,
-          splashColor: theme.colorScheme.tertiary.withOpacity(0.2),
+          splashColor: theme.colorScheme.tertiary.withValues(alpha: 0.2),
           constraints: BoxConstraints.expand(
               width: (constraints.maxWidth / 2) - 2, height: 40),
           children: const [
@@ -90,10 +91,10 @@ class _SearchScreenState extends State<SearchScreen> {
     return TextField(
       decoration: InputDecoration(
         hintText: "Cari artikel, rumah sakit...",
-        hintStyle:
-            TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.4)),
+        hintStyle: TextStyle(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
         prefixIcon: Icon(Iconsax.search_normal,
-            color: theme.colorScheme.onSurface.withOpacity(0.6)),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
         filled: true,
         fillColor: theme.scaffoldBackgroundColor,
         border: OutlineInputBorder(
@@ -122,11 +123,13 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Row(
         children: [
           Icon(Iconsax.clock,
-              color: theme.colorScheme.onSurface.withOpacity(0.6), size: 20),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              size: 20),
           const SizedBox(width: 12),
           Expanded(child: Text(query)),
           Icon(Iconsax.close_circle,
-              color: theme.colorScheme.onSurface.withOpacity(0.6), size: 20),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              size: 20),
         ],
       ),
     );

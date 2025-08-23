@@ -50,7 +50,7 @@ class RecentActivityCard extends StatelessWidget {
                 Text(
                   "Laboratorium Dasar, Konsultasi Dokter Spesialis",
                   style: textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSecondary.withOpacity(0.7)),
+                      color: colorScheme.onSecondary.withValues(alpha: 0.7)),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

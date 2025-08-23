@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+
 import '../../../estimation/presentation/pages/input_complaint_screen.dart';
 import '../../../history/presentation/pages/history_screen.dart';
 import '../../../home/presentation/pages/home_screen.dart';
@@ -80,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
     final bool isSelected = _selectedIndex == index;
     final Color color = isSelected
         ? theme.colorScheme.tertiary
-        : theme.colorScheme.onSurface.withOpacity(0.5);
+        : theme.colorScheme.onSurface.withValues(alpha: 0.5);
 
     return Expanded(
       child: InkWell(

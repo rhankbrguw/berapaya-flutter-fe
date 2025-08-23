@@ -31,7 +31,7 @@ class HospitalDetailScreen extends StatelessWidget {
               background: Image.network(
                 "https://images.unsplash.com/photo-1574786700282-AC5a14f2db63?q=80&w=1974&auto=format&fit=crop",
                 fit: BoxFit.cover,
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.black.withValues(alpha: 0.4),
                 colorBlendMode: BlendMode.darken,
               ),
             ),
@@ -52,7 +52,7 @@ class HospitalDetailScreen extends StatelessWidget {
                   Text(
                     "Golongan A",
                     style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSurface.withOpacity(0.6),
+                      color: colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -60,7 +60,7 @@ class HospitalDetailScreen extends StatelessWidget {
                     "ABOUT",
                     style: textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: colorScheme.onSurface.withOpacity(0.6),
+                      color: colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
                   const SizedBox(height: 8),

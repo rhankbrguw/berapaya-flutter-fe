@@ -33,7 +33,7 @@ class RecommendationClassCard extends StatelessWidget {
             isBest ? Border.all(color: colorScheme.tertiary, width: 1.5) : null,
         boxShadow: [
           BoxShadow(
-            color: theme.shadowColor.withOpacity(0.05),
+            color: theme.shadowColor.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -53,7 +53,7 @@ class RecommendationClassCard extends StatelessWidget {
                   originalPrice!,
                   style: textTheme.bodySmall?.copyWith(
                       decoration: TextDecoration.lineThrough,
-                      color: colorScheme.onSurface.withOpacity(0.6)),
+                      color: colorScheme.onSurface.withValues(alpha: 0.6)),
                 ),
               if (discount != null)
                 Container(
@@ -61,7 +61,7 @@ class RecommendationClassCard extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: colorScheme.errorContainer.withOpacity(0.5),
+                    color: colorScheme.errorContainer.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(

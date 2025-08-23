@@ -32,7 +32,7 @@ class ProfileMenuItem extends StatelessWidget {
       trailing: Icon(
         Iconsax.arrow_right_3,
         size: 18,
-        color: theme.colorScheme.onSurface.withOpacity(0.4),
+        color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
       ),
     );
   }

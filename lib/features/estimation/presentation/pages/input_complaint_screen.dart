@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+
 import '../widgets/progress_stepper.dart';
 import '../widgets/service_selection_tile.dart';
 import 'patient_profile_screen.dart';
@@ -64,7 +65,7 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
                   const SizedBox(height: 8),
                   Text("Deskripsikan keluhan yang anda rasakan",
                       style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurface.withOpacity(0.6))),
+                          color: colorScheme.onSurface.withValues(alpha: 0.6))),
                   const SizedBox(height: 16),
                   _buildComplaintTextField(theme),
                   const SizedBox(height: 24),
@@ -79,7 +80,7 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
                   const SizedBox(height: 8),
                   Text("Pilih layanan kesehatan yang anda inginkan",
                       style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurface.withOpacity(0.6))),
+                          color: colorScheme.onSurface.withValues(alpha: 0.6))),
                   const SizedBox(height: 16),
                   for (final service in _services)
                     ServiceSelectionTile(
@@ -104,8 +105,8 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
       cursorColor: theme.colorScheme.tertiary,
       decoration: InputDecoration(
         hintText: "Contoh: Nyeri kepala di bagian belakang",
-        hintStyle:
-            TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.4)),
+        hintStyle: TextStyle(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
         filled: true,
         fillColor: theme.colorScheme.surface,
         border: OutlineInputBorder(
@@ -158,8 +159,8 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
         ),
         child: Text(
           "Tambah +",
-          style: theme.textTheme.bodyMedium
-              ?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.6)),
+          style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
         ),
       ),
     );

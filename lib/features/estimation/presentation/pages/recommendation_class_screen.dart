@@ -34,8 +34,8 @@ class RecommendationClassScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               "Berikut hasil berdasarkan golongan dan rekomendasi terbaik untuk anda",
-              style: textTheme.bodyMedium
-                  ?.copyWith(color: colorScheme.onSurface.withOpacity(0.6)),
+              style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurface.withValues(alpha: 0.6)),
             ),
             const SizedBox(height: 24),
             const RecommendationClassCard(
