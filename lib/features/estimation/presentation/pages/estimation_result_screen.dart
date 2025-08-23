@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../app/core/constants/color_constants.dart';
 import '../../../main_app/presentation/pages/main_screen.dart';
 
 class EstimationResultScreen extends StatelessWidget {
@@ -6,13 +7,16 @@ class EstimationResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: colorScheme.surface,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -21,22 +25,24 @@ class EstimationResultScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Hasil Estimasi",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: textTheme.headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               "Berikut adalah hasil estimasi biaya layanan kesehatan anda",
-              style: TextStyle(color: Colors.grey, fontSize: 14),
+              style: textTheme.bodyMedium?.copyWith(color: AppColors.grey),
             ),
             const SizedBox(height: 24),
-            const Text(
+            Text(
               "Total Estimasi",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style:
+                  textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            _buildCostCard(),
+            _buildCostCard(context),
             const Spacer(),
             _buildBottomButton(context),
           ],
@@ -45,65 +51,74 @@ class EstimationResultScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCostCard() {
+  Widget _buildCostCard(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withAlpha(25),
+            spreadRadius: 1,
+            blurRadius: 10,
+          ),
+        ],
       ),
       child: Column(
         children: [
-          _buildCostRow("Layanan Kesehatan", "Rp100.000"),
-          _buildCostRow("Konsultasi Dokter", "Rp750.000",
+          _buildCostRow(context, "Layanan Kesehatan", "Rp100.000"),
+          _buildCostRow(context, "Konsultasi Dokter", "Rp750.000",
               subtext: "-Rp500.000 (BPJS)"),
-          _buildCostRow("Obat-obatan", "Rp200.000",
+          _buildCostRow(context, "Obat-obatan", "Rp200.000",
               subtext: "-Rp180.000 (BPJS)"),
           const Divider(height: 24),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.blue.withAlpha(13),
+              color: AppColors.accentBlue.withAlpha(25),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: _buildCostRow("Total", "Rp370.000", isTotal: true),
+            child: _buildCostRow(context, "Total", "Rp370.000", isTotal: true),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildCostRow(String item, String price,
+  Widget _buildCostRow(BuildContext context, String item, String price,
       {String? subtext, bool isTotal = false}) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    final itemStyle = isTotal
+        ? textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold, color: AppColors.primaryDarkGreen)
+        : textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface);
+
+    final priceStyle = isTotal
+        ? textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold, color: AppColors.primaryDarkGreen)
+        : textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold, color: colorScheme.onSurface);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(
-            item,
-            style: TextStyle(
-              fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
-              color: isTotal ? const Color(0xFF004346) : Colors.black87,
-              fontSize: isTotal ? 16 : 14,
-            ),
-          ),
+          Text(item, style: itemStyle),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                price,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: isTotal ? const Color(0xFF004346) : Colors.black,
-                  fontSize: isTotal ? 18 : 16,
-                ),
-              ),
+              Text(price, style: priceStyle),
               if (subtext != null)
                 Text(
                   subtext,
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  style: textTheme.bodySmall?.copyWith(color: AppColors.grey),
                 ),
             ],
           )
@@ -114,7 +129,7 @@ class EstimationResultScreen extends StatelessWidget {
 
   Widget _buildBottomButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 30), // Perubahan di sini
+      padding: const EdgeInsets.only(top: 10, bottom: 30),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -127,14 +142,14 @@ class EstimationResultScreen extends StatelessWidget {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF74B3CE),
+            backgroundColor: AppColors.accentBlue,
+            foregroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: const Text("Gunakan Rekomendasi",
-              style: TextStyle(color: Colors.white)),
+          child: const Text("Gunakan Rekomendasi"),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../app/core/constants/color_constants.dart';
 
 class AuthButton extends StatelessWidget {
   final String text;
@@ -17,7 +18,8 @@ class AuthButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF74B3CE),
+          backgroundColor: AppColors.accentBlue,
+          foregroundColor: AppColors.white,
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

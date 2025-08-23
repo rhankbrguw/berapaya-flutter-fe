@@ -1,4 +1,3 @@
-// lib/main.dart
 import 'package:flutter/material.dart';
 import 'app/config/theme/app_theme.dart';
 import 'features/splash/presentation/pages/splash_screen.dart';

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import '../../../../app/core/constants/color_constants.dart';
 
 class HospitalDetailScreen extends StatelessWidget {
   const HospitalDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -16,10 +19,14 @@ class HospitalDetailScreen extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
             ),
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text("RS Ukrida", style: TextStyle(fontSize: 16)),
+              title: Text("RS Ukrida",
+                  style:
+                      textTheme.titleMedium?.copyWith(color: AppColors.white)),
               background: Image.network(
                 "https://placehold.co/600x400/A0A0A0/FFFFFF?text=Dummy+Map",
                 fit: BoxFit.cover,
+                color: Colors.black.withAlpha(102),
+                colorBlendMode: BlendMode.darken,
               ),
             ),
           ),
@@ -43,31 +50,33 @@ class HospitalDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  const Text("Rumah Sakit Ukrida",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                  const Text("Golongan A",
-                      style: TextStyle(color: Colors.grey)),
+                  Text("Rumah Sakit Ukrida",
+                      style: textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  Text("Golongan A",
+                      style: textTheme.bodyMedium
+                          ?.copyWith(color: AppColors.grey)),
                   const SizedBox(height: 16),
-                  const Text("ABOUT",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.grey)),
+                  Text("ABOUT",
+                      style: textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.bold, color: AppColors.grey)),
                   const SizedBox(height: 8),
-                  const Text(
-                      "Perfect flat for 4 people. Peaceful and good location, close to bus stops and many restaurants."),
+                  Text(
+                      "Perfect flat for 4 people. Peaceful and good location, close to bus stops and many restaurants.",
+                      style: textTheme.bodyMedium),
                   const SizedBox(height: 32),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF74B3CE),
+                        backgroundColor: AppColors.accentBlue,
+                        foregroundColor: AppColors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12)),
                       ),
-                      child: const Text("Open in Maps",
-                          style: TextStyle(color: Colors.white)),
+                      child: const Text("Open in Maps"),
                     ),
                   ),
                 ],

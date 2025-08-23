@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../app/core/constants/color_constants.dart';
 
 class ProgressStepper extends StatelessWidget {
   final int currentStep;
@@ -20,7 +21,7 @@ class ProgressStepper extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 2),
             decoration: BoxDecoration(
               color: index < currentStep
-                  ? const Color(0xFF74B3CE)
+                  ? AppColors.accentBlue
                   : Colors.grey.shade300,
               borderRadius: BorderRadius.circular(4),
             ),

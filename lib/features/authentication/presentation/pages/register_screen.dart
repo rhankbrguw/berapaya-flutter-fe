@@ -1,5 +1,5 @@
-// \lib\features\authentication\presentation\pages\register_screen.dart
 import 'package:flutter/material.dart';
+import '../../../../app/core/constants/color_constants.dart';
 import '../widgets/auth_button.dart';
 import '../widgets/custom_text_field.dart';
 
@@ -8,6 +8,9 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       body: Column(
         children: [
@@ -20,9 +23,9 @@ class RegisterScreen extends StatelessWidget {
           Expanded(
             child: Container(
               padding: const EdgeInsets.fromLTRB(32.0, 32.0, 32.0, 0),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: colorScheme.surface,
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
                 ),
@@ -33,11 +36,10 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     Text(
                       "Daftar Akun",
-                      style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                color: const Color(0xFF74B3CE),
-                                fontWeight: FontWeight.bold,
-                              ),
+                      style: textTheme.headlineMedium?.copyWith(
+                        color: AppColors.accentBlue,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 24),
                     const CustomTextField(hintText: "Nama Lengkap"),
@@ -55,15 +57,15 @@ class RegisterScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Sudah punya akun? "),
+                        Text("Sudah punya akun? ", style: textTheme.bodyMedium),
                         GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: const Text(
+                          child: Text(
                             "Login",
-                            style: TextStyle(
-                              color: Color(0xFF74B3CE),
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: AppColors.accentBlue,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

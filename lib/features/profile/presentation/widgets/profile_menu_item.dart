@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../app/core/constants/color_constants.dart';
+
 class ProfileMenuItem extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -19,15 +21,18 @@ class ProfileMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      leading: Icon(icon, color: const Color(0xFF74B3CE)),
+      leading: Icon(icon, color: AppColors.accentBlue),
       title: Text(
         title,
-        style: TextStyle(fontWeight: FontWeight.w500, color: textColor),
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.w500,
+              color: textColor,
+            ),
       ),
-      trailing: Icon(
+      trailing: const Icon(
         Iconsax.arrow_right_3,
         size: 18,
-        color: Colors.grey.shade400,
+        color: AppColors.grey,
       ),
     );
   }

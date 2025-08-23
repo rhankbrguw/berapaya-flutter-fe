@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import '../../../../app/core/constants/color_constants.dart';
 import 'hospital_recommendation_screen.dart';
 import '../widgets/recommendation_class_card.dart';
 
 class RecommendationClassScreen extends StatelessWidget {
   const RecommendationClassScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -23,14 +26,13 @@ class RecommendationClassScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Rekomendasi",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
+            Text("Rekomendasi",
+                style: textTheme.headlineMedium
+                    ?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               "Berikut hasil berdasarkan golongan dan rekomendasi terbaik untuk anda",
-              style: TextStyle(color: Colors.grey, fontSize: 14),
+              style: textTheme.bodyMedium?.copyWith(color: AppColors.grey),
             ),
             const SizedBox(height: 24),
             const RecommendationClassCard(
@@ -49,7 +51,7 @@ class RecommendationClassScreen extends StatelessWidget {
               price: "Rp100.000",
             ),
             const SizedBox(height: 24),
-            _buildInfoBox(),
+            _buildInfoBox(context),
             const Spacer(),
             _buildBottomButton(context),
           ],
@@ -58,40 +60,43 @@ class RecommendationClassScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoBox() {
+  Widget _buildInfoBox(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFD6F3F4).withAlpha(128),
+        color: AppColors.backgroundLight.withAlpha(128),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Informasi Penting:",
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          Text("Informasi Penting:",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
-          _buildInfoItem(
+          _buildInfoItem(context,
               "Estimasi biaya ini hanya perkiraan dan dapat berbeda dengan biaya aktual."),
-          _buildInfoItem(
+          _buildInfoItem(context,
               "Biaya dapat berubah tergantung pada kondisi medis pasien."),
-          _buildInfoItem(
+          _buildInfoItem(context,
               "Konsultasikan dengan pihak rumah sakit untuk informasi biaya yang lebih akurat."),
         ],
       ),
     );
   }
 
-  Widget _buildInfoItem(String text) {
+  Widget _buildInfoItem(BuildContext context, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Iconsax.star_1, color: Color(0xFF74B3CE), size: 18),
+          const Icon(Iconsax.star_1, color: AppColors.accentBlue, size: 18),
           const SizedBox(width: 8),
           Expanded(
-              child: Text(text, style: const TextStyle(color: Colors.black54))),
+              child: Text(text, style: Theme.of(context).textTheme.bodyMedium)),
         ],
       ),
     );
@@ -99,7 +104,7 @@ class RecommendationClassScreen extends StatelessWidget {
 
   Widget _buildBottomButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 30), // Perubahan di sini
+      padding: const EdgeInsets.only(top: 10, bottom: 30),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -111,13 +116,11 @@ class RecommendationClassScreen extends StatelessWidget {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF74B3CE),
+            backgroundColor: AppColors.accentBlue,
+            foregroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
           ),
-          child: const Text("Next", style: TextStyle(color: Colors.white)),
+          child: const Text("Next"),
         ),
       ),
     );

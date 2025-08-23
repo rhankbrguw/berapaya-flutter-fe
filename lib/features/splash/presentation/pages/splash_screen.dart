@@ -1,4 +1,3 @@
-// lib\features\splash\presentation\pages\splash_screen.dart
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../../../onboarding/presentation/pages/onboarding_screen.dart';
@@ -25,6 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -37,11 +39,11 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 24),
             Text(
               "BerapaYa",
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: const Color(0xFF172A3A),
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.5,
-                  ),
+              style: textTheme.headlineMedium?.copyWith(
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
+              ),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../app/core/constants/color_constants.dart';
 import 'recommendation_class_screen.dart';
 import '../widgets/progress_stepper.dart';
 
@@ -7,13 +8,16 @@ class MedicalHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: colorScheme.surface,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -29,24 +33,20 @@ class MedicalHistoryScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Riwayat Medis (Opsional)",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
+                    Text("Riwayat Medis (Opsional)",
+                        style: textTheme.headlineSmall
+                            ?.copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 24),
-                    const Text(
-                      "Apakah Anda memiliki alergi obat?",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                    ),
+                    Text("Apakah Anda memiliki alergi obat?",
+                        style: textTheme.bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.w600)),
                     const SizedBox(height: 8),
                     TextField(
                       decoration: InputDecoration(
                         hintText: "Contoh: Paracetamol, Amoxicillin",
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
+                        hintStyle: const TextStyle(color: AppColors.grey),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: colorScheme.surface,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -58,18 +58,16 @@ class MedicalHistoryScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      "Apakah Anda memiliki penyakit kronis/bawaan?",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                    ),
+                    Text("Apakah Anda memiliki penyakit kronis/bawaan?",
+                        style: textTheme.bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.w600)),
                     const SizedBox(height: 8),
                     TextField(
                       decoration: InputDecoration(
                         hintText: "Contoh: Asma, Diabetes, Hipertensi",
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
+                        hintStyle: const TextStyle(color: AppColors.grey),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: colorScheme.surface,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -105,14 +103,14 @@ class MedicalHistoryScreen extends StatelessWidget {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF74B3CE),
+            backgroundColor: AppColors.accentBlue,
+            foregroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: const Text("Generate Estimasi",
-              style: TextStyle(color: Colors.white)),
+          child: const Text("Generate Estimasi"),
         ),
       ),
     );

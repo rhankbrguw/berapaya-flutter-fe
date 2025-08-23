@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../app/core/constants/color_constants.dart';
 import '../../../estimation/presentation/widgets/custom_dropdown_field.dart';
 import '../../../estimation/presentation/widgets/custom_input_field.dart';
 
@@ -17,18 +18,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: colorScheme.surface,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
+        title: Text(
           "Profil Pengguna",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: textTheme.titleLarge?.copyWith(
+              color: colorScheme.onSurface, fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(
@@ -120,13 +125,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Navigator.of(context).pop();
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF74B3CE),
+            backgroundColor: AppColors.accentBlue,
+            foregroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: const Text("Simpan", style: TextStyle(color: Colors.white)),
+          child: const Text("Simpan"),
         ),
       ),
     );

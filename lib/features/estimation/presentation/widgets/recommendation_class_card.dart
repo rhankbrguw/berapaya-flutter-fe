@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import '../../../../app/core/constants/color_constants.dart';
 
 class RecommendationClassCard extends StatelessWidget {
   final String className;
@@ -19,18 +20,20 @@ class RecommendationClassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: isBest
-            ? Border.all(color: const Color(0xFF74B3CE), width: 1.5)
-            : null,
+        border:
+            isBest ? Border.all(color: AppColors.accentBlue, width: 1.5) : null,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withAlpha(20), // Fix: withOpacity -> withAlpha
+            color: Colors.grey.withAlpha(20),
             spreadRadius: 1,
             blurRadius: 10,
           ),
@@ -43,14 +46,14 @@ class RecommendationClassCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(className,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold)),
+                  style: textTheme.titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold)),
               if (originalPrice != null)
                 Text(
                   originalPrice!,
-                  style: const TextStyle(
+                  style: textTheme.bodySmall?.copyWith(
                       decoration: TextDecoration.lineThrough,
-                      color: Colors.grey),
+                      color: AppColors.grey),
                 ),
               if (discount != null)
                 Container(
@@ -72,13 +75,11 @@ class RecommendationClassCard extends StatelessWidget {
           ),
           if (isBest)
             const CircleAvatar(
-              backgroundColor: Color(0xFF74B3CE),
+              backgroundColor: AppColors.accentBlue,
               radius: 14,
-              child: Icon(Iconsax.star_1, color: Colors.white, size: 16),
+              child: Icon(Iconsax.star_1, color: AppColors.white, size: 16),
             ),
-          Text(price,
-              style:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(price, style: textTheme.titleLarge),
         ],
       ),
     );

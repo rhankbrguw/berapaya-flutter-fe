@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import '../../../../app/core/constants/color_constants.dart';
 import 'estimation_result_screen.dart';
 import 'hospital_detail_screen.dart';
 
@@ -8,17 +9,21 @@ class HospitalRecommendationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text("Kelas A",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        title: Text("Kelas A",
+            style:
+                textTheme.titleLarge?.copyWith(color: colorScheme.onSurface)),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -42,9 +47,12 @@ class HospitalRecommendationScreen extends StatelessWidget {
   }
 
   Widget _buildHospitalCard(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -64,14 +72,13 @@ class HospitalRecommendationScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Rumah Sakit Ukrida",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+                Text("Rumah Sakit Ukrida",
+                    style: textTheme.titleLarge
+                        ?.copyWith(color: colorScheme.onSurface)),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   "Jl. Arjuna Utara No.6, RT.6/RW.2, Duri Kepa, Kec. Kb. Jeruk, Kota Jakarta Barat...",
-                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                  style: textTheme.bodyMedium?.copyWith(color: AppColors.grey),
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
@@ -89,19 +96,19 @@ class HospitalRecommendationScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),
                     ),
-                    child: const Text("Lihat Detail",
-                        style: TextStyle(color: Colors.black54)),
+                    child: Text("Lihat Detail",
+                        style: TextStyle(color: colorScheme.onSurface)),
                   ),
                 ),
                 const SizedBox(height: 24),
-                const Text(
-                  "Alasan Rekomendasi:",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                Text("Alasan Rekomendasi:",
+                    style: textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.onSurface)),
                 const SizedBox(height: 8),
-                _buildReasonItem("Terdekat dengan Anda"),
-                _buildReasonItem("Biaya cocok dengan profile anda"),
-                _buildReasonItem(
+                _buildReasonItem(context, "Terdekat dengan Anda"),
+                _buildReasonItem(context, "Biaya cocok dengan profile anda"),
+                _buildReasonItem(context,
                     "Konsultasikan dengan pihak rumah sakit untuk informasi biaya yang lebih akurat."),
               ],
             ),
@@ -111,16 +118,16 @@ class HospitalRecommendationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildReasonItem(String text) {
+  Widget _buildReasonItem(BuildContext context, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Iconsax.star_1, color: Color(0xFF74B3CE), size: 18),
+          const Icon(Iconsax.star_1, color: AppColors.accentBlue, size: 18),
           const SizedBox(width: 8),
           Expanded(
-              child: Text(text, style: const TextStyle(color: Colors.black54))),
+              child: Text(text, style: Theme.of(context).textTheme.bodyMedium)),
         ],
       ),
     );
@@ -128,7 +135,7 @@ class HospitalRecommendationScreen extends StatelessWidget {
 
   Widget _buildBottomButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 30), // Perubahan di sini
+      padding: const EdgeInsets.only(top: 10, bottom: 30),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -140,14 +147,11 @@ class HospitalRecommendationScreen extends StatelessWidget {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF74B3CE),
+            backgroundColor: AppColors.accentBlue,
+            foregroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
           ),
-          child: const Text("Detail Estimasi",
-              style: TextStyle(color: Colors.white)),
+          child: const Text("Detail Estimasi"),
         ),
       ),
     );

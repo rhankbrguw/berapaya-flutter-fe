@@ -1,5 +1,5 @@
-// lib\features\onboarding\presentation\pages\onboarding_screen.dart
 import 'package:flutter/material.dart';
+import '../../../../app/core/constants/color_constants.dart';
 import '../../../authentication/presentation/pages/login_screen.dart';
 import '../../domain/entities/onboarding_content.dart';
 import '../widgets/onboarding_page.dart';
@@ -39,7 +39,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Column(
           children: [
@@ -95,7 +95,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF74B3CE),
+                          backgroundColor: AppColors.accentBlue,
+                          foregroundColor: AppColors.white,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -105,7 +106,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           _currentPage == _contentList.length - 1
                               ? "Done"
                               : "Next",
-                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -127,9 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       height: 8,
       width: _currentPage == index ? 24 : 8,
       decoration: BoxDecoration(
-        color: _currentPage == index
-            ? const Color(0xFF74B3CE)
-            : Colors.grey.shade400,
+        color: _currentPage == index ? AppColors.accentBlue : AppColors.grey,
         borderRadius: BorderRadius.circular(4),
       ),
     );

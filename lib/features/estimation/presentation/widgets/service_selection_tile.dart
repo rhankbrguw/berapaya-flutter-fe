@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import '../../../../app/core/constants/color_constants.dart';
 
 class ServiceSelectionTile extends StatelessWidget {
   final String title;
@@ -15,16 +16,19 @@ class ServiceSelectionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFD6F3F4) : Colors.white,
+          color: isSelected ? AppColors.backgroundLight : colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? const Color(0xFF74B3CE) : Colors.grey.shade300,
+            color: isSelected ? AppColors.accentBlue : Colors.grey.shade300,
           ),
         ),
         child: Row(
@@ -32,15 +36,17 @@ class ServiceSelectionTile extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: textTheme.bodyMedium?.copyWith(
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected ? const Color(0xFF004346) : Colors.black87,
+                color: isSelected
+                    ? AppColors.primaryDarkGreen
+                    : colorScheme.onSurface,
               ),
             ),
             if (isSelected)
               const Icon(
                 Iconsax.tick_circle,
-                color: Color(0xFF74B3CE),
+                color: AppColors.accentBlue,
               ),
           ],
         ),

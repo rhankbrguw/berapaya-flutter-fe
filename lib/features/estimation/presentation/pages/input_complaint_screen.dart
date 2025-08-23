@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'patient_profile_screen.dart';
+
+import '../../../../app/core/constants/color_constants.dart';
 import '../widgets/progress_stepper.dart';
 import '../widgets/service_selection_tile.dart';
+import 'patient_profile_screen.dart';
 
 class InputComplaintScreen extends StatefulWidget {
   const InputComplaintScreen({super.key});
@@ -32,20 +34,23 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: colorScheme.surface,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: ProgressStepper(currentStep: 1, totalSteps: 3),
           ),
           Expanded(
@@ -54,23 +59,21 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Keluhan Anda",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
+                  Text("Keluhan Anda",
+                      style: textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  const Text(
-                    "Deskripsikan keluhan yang anda rasakan",
-                    style: TextStyle(color: Colors.grey, fontSize: 14),
-                  ),
+                  Text("Deskripsikan keluhan yang anda rasakan",
+                      style: textTheme.bodyMedium
+                          ?.copyWith(color: AppColors.grey)),
                   const SizedBox(height: 16),
                   TextField(
                     maxLines: 4,
                     decoration: InputDecoration(
                       hintText: "Contoh: Nyeri kepala di bagian belakang",
-                      hintStyle: TextStyle(color: Colors.grey.shade500),
+                      hintStyle: const TextStyle(color: AppColors.grey),
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: colorScheme.surface,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide(color: Colors.grey.shade300),
@@ -82,10 +85,9 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    "Sudah Punya Diagnosis?",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                  ),
+                  Text("Sudah Punya Diagnosis?",
+                      style: textTheme.bodyLarge
+                          ?.copyWith(fontWeight: FontWeight.w600)),
                   Row(
                     children: [
                       Radio<int>(
@@ -106,15 +108,13 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    "Layanan Kesehatan",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
+                  Text("Layanan Kesehatan",
+                      style: textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  const Text(
-                    "Pilih layanan kesehatan yang anda inginkan",
-                    style: TextStyle(color: Colors.grey, fontSize: 14),
-                  ),
+                  Text("Pilih layanan kesehatan yang anda inginkan",
+                      style: textTheme.bodyMedium
+                          ?.copyWith(color: AppColors.grey)),
                   const SizedBox(height: 16),
                   for (final service in _services)
                     ServiceSelectionTile(
@@ -122,7 +122,7 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
                       isSelected: _selectedServices.contains(service),
                       onTap: () => _toggleService(service),
                     ),
-                  _buildAddServiceButton(),
+                  _buildAddServiceButton(context),
                 ],
               ),
             ),
@@ -133,7 +133,7 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
     );
   }
 
-  Widget _buildAddServiceButton() {
+  Widget _buildAddServiceButton(BuildContext context) {
     return GestureDetector(
       onTap: () {},
       child: Container(
@@ -141,15 +141,18 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: Colors.grey.shade300,
           ),
         ),
-        child: const Text(
+        child: Text(
           "Tambah +",
-          style: TextStyle(color: Colors.black54),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: AppColors.grey),
         ),
       ),
     );
@@ -157,8 +160,8 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
 
   Widget _buildBottomButton(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 30), // Perubahan di sini
-      color: Colors.grey.shade50,
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
+      color: Theme.of(context).colorScheme.surface,
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -170,13 +173,14 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF74B3CE),
+            backgroundColor: AppColors.accentBlue,
+            foregroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: const Text("Next", style: TextStyle(color: Colors.white)),
+          child: const Text("Next"),
         ),
       ),
     );

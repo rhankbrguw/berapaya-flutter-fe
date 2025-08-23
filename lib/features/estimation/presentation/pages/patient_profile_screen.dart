@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'medical_history_screen.dart';
+
+import '../../../../app/core/constants/color_constants.dart';
 import '../widgets/custom_dropdown_field.dart';
 import '../widgets/custom_input_field.dart';
 import '../widgets/progress_stepper.dart';
+import 'medical_history_screen.dart';
 
 class PatientProfileScreen extends StatefulWidget {
   const PatientProfileScreen({super.key});
@@ -18,13 +20,16 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: colorScheme.surface,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -40,11 +45,9 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Profil Calon Pasien",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
+                    Text("Profil Calon Pasien",
+                        style: textTheme.headlineSmall
+                            ?.copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 24),
                     const CustomInputField(
                         label: "Nama", hintText: "Masukkan nama lengkap"),
@@ -72,7 +75,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                         "Bogor",
                         "Depok",
                         "Tangerang",
-                        "Bekasi",
+                        "Bekasi"
                       ],
                       onChanged: (value) =>
                           setState(() => _selectedLocation = value),
@@ -104,7 +107,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
 
   Widget _buildBottomButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 30), // Perubahan di sini
+      padding: const EdgeInsets.only(top: 10, bottom: 30),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -116,13 +119,14 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF74B3CE),
+            backgroundColor: AppColors.accentBlue,
+            foregroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: const Text("Next", style: TextStyle(color: Colors.white)),
+          child: const Text("Next"),
         ),
       ),
     );
