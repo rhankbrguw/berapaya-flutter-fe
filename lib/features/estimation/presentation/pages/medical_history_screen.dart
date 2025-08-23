@@ -1,99 +1,104 @@
 import 'package:flutter/material.dart';
-import 'recommendation_class_screen.dart';
+import 'package:iconsax/iconsax.dart';
+
 import '../widgets/progress_stepper.dart';
+import 'recommendation_class_screen.dart';
 
 class MedicalHistoryScreen extends StatelessWidget {
   const MedicalHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
+        backgroundColor: colorScheme.surface,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Iconsax.arrow_left_2, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ProgressStepper(currentStep: 3, totalSteps: 3),
-            const SizedBox(height: 24),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Riwayat Medis (Opsional)",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 24),
-                    const Text(
-                      "Apakah Anda memiliki alergi obat?",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                    ),
-                    const SizedBox(height: 8),
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: "Contoh: Paracetamol, Amoxicillin",
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      "Apakah Anda memiliki penyakit kronis/bawaan?",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                    ),
-                    const SizedBox(height: 8),
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: "Contoh: Asma, Diabetes, Hipertensi",
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: ProgressStepper(currentStep: 3, totalSteps: 3),
+          ),
+          const SizedBox(height: 24),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Riwayat Medis (Opsional)",
+                      style: textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 24),
+                  Text("Apakah Anda memiliki alergi obat?",
+                      style: textTheme.bodyLarge
+                          ?.copyWith(fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 8),
+                  _buildThemedTextField(
+                      theme, "Contoh: Paracetamol, Amoxicillin"),
+                  const SizedBox(height: 16),
+                  Text("Apakah Anda memiliki penyakit kronis/bawaan?",
+                      style: textTheme.bodyLarge
+                          ?.copyWith(fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 8),
+                  _buildThemedTextField(
+                      theme, "Contoh: Asma, Diabetes, Hipertensi"),
+                ],
               ),
             ),
-            _buildBottomButton(context),
-          ],
+          ),
+          _buildBottomButton(context, theme),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildThemedTextField(ThemeData theme, String hintText) {
+    return TextField(
+      cursorColor: theme.colorScheme.tertiary,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+        filled: true,
+        fillColor: theme.colorScheme.surface,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: theme.dividerColor),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: theme.dividerColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: theme.colorScheme.tertiary, width: 1.5),
         ),
       ),
     );
   }
 
-  Widget _buildBottomButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 30),
+  Widget _buildBottomButton(BuildContext context, ThemeData theme) {
+    final ButtonStyle customButtonStyle = ElevatedButton.styleFrom(
+      backgroundColor: theme.colorScheme.tertiary,
+      foregroundColor: theme.colorScheme.onPrimary,
+      padding: const EdgeInsets.symmetric(vertical: 16),
+    ).merge(theme.elevatedButtonTheme.style);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(24, 32, 24, 32),
+      color: theme.colorScheme.surface,
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -104,15 +109,8 @@ class MedicalHistoryScreen extends StatelessWidget {
                   builder: (context) => const RecommendationClassScreen()),
             );
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF74B3CE),
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          child: const Text("Generate Estimasi",
-              style: TextStyle(color: Colors.white)),
+          style: customButtonStyle,
+          child: const Text("Generate Estimasi"),
         ),
       ),
     );

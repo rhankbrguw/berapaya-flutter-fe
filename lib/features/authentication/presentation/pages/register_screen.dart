@@ -1,82 +1,57 @@
-// \lib\features\authentication\presentation\pages\register_screen.dart
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../widgets/auth_button.dart';
 import '../widgets/custom_text_field.dart';
+import '../widgets/auth_page_layout.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    final ThemeData theme = Theme.of(context);
+
+    void navigateBackToLogin() {
+      Navigator.pop(context);
+    }
+
+    final List<Widget> formFields = [
+      const CustomTextField(hintText: "Nama Lengkap"),
+      const SizedBox(height: 16),
+      const CustomTextField(hintText: "email/username"),
+      const SizedBox(height: 16),
+      const CustomTextField(hintText: "password", isObscure: true),
+      const SizedBox(height: 32),
+      SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () {},
+          child: const Text("Daftar"),
+        ),
+      ),
+    ];
+
+    final Widget navigationText = RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: theme.textTheme.bodyMedium,
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.35,
-            child: Center(
-              child: Image.asset('assets/images/logo-1.png', width: 120),
+          const TextSpan(text: "Sudah punya akun? "),
+          TextSpan(
+            text: "Login",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.tertiary,
             ),
-          ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(32.0, 32.0, 32.0, 0),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Daftar Akun",
-                      style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                color: const Color(0xFF74B3CE),
-                                fontWeight: FontWeight.bold,
-                              ),
-                    ),
-                    const SizedBox(height: 24),
-                    const CustomTextField(hintText: "Nama Lengkap"),
-                    const SizedBox(height: 16),
-                    const CustomTextField(hintText: "Email/Username"),
-                    const SizedBox(height: 16),
-                    const CustomTextField(
-                        hintText: "Password", isObscure: true),
-                    const SizedBox(height: 32),
-                    AuthButton(
-                      text: "Daftar",
-                      onPressed: () {},
-                    ),
-                    const SizedBox(height: 24),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Sudah punya akun? "),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Color(0xFF74B3CE),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            recognizer: TapGestureRecognizer()..onTap = navigateBackToLogin,
           ),
         ],
       ),
+    );
+
+    return AuthPageLayout(
+      title: "Daftar Akun",
+      formFields: formFields,
+      navigationText: navigationText,
     );
   }
 }

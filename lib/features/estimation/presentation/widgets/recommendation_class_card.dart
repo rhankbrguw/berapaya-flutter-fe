@@ -19,20 +19,23 @@ class RecommendationClassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: isBest
-            ? Border.all(color: const Color(0xFF74B3CE), width: 1.5)
-            : null,
+        border:
+            isBest ? Border.all(color: colorScheme.tertiary, width: 1.5) : null,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withAlpha(20), // Fix: withOpacity -> withAlpha
-            spreadRadius: 1,
+            color: theme.shadowColor.withValues(alpha: 0.05),
             blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -43,42 +46,47 @@ class RecommendationClassCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(className,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold)),
+                  style: textTheme.titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold)),
               if (originalPrice != null)
                 Text(
                   originalPrice!,
-                  style: const TextStyle(
+                  style: textTheme.bodySmall?.copyWith(
                       decoration: TextDecoration.lineThrough,
-                      color: Colors.grey),
+                      color: colorScheme.onSurface.withValues(alpha: 0.6)),
                 ),
               if (discount != null)
                 Container(
+                  margin: const EdgeInsets.only(top: 4),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: Colors.orange.shade100,
+                    color: colorScheme.errorContainer.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
                     discount!,
-                    style: TextStyle(
-                        color: Colors.orange.shade800,
-                        fontSize: 12,
+                    style: textTheme.labelSmall?.copyWith(
+                        color: colorScheme.onErrorContainer,
                         fontWeight: FontWeight.w500),
                   ),
                 ),
             ],
           ),
-          if (isBest)
-            const CircleAvatar(
-              backgroundColor: Color(0xFF74B3CE),
-              radius: 14,
-              child: Icon(Iconsax.star_1, color: Colors.white, size: 16),
-            ),
-          Text(price,
-              style:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+              Text(price, style: textTheme.titleLarge),
+              if (isBest) ...[
+                const SizedBox(width: 16),
+                CircleAvatar(
+                  backgroundColor: colorScheme.tertiary,
+                  radius: 14,
+                  child: Icon(Iconsax.star_1,
+                      color: colorScheme.onPrimary, size: 16),
+                ),
+              ]
+            ],
+          ),
         ],
       ),
     );

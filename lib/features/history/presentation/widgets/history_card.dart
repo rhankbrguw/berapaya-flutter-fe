@@ -14,7 +14,7 @@ class HistoryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withAlpha(20), // Perbaikan di sini
+            color: Colors.grey.withAlpha(20),
             spreadRadius: 1,
             blurRadius: 10,
           ),

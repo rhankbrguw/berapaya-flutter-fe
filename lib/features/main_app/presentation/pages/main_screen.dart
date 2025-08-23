@@ -38,7 +38,10 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _pages[_selectedIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -48,36 +51,57 @@ class _MainScreenState extends State<MainScreen> {
                 builder: (context) => const InputComplaintScreen()),
           );
         },
-        backgroundColor: const Color(0xFF74B3CE),
+        backgroundColor: theme.colorScheme.tertiary,
         elevation: 4,
         shape: const CircleBorder(),
-        child: const Icon(Iconsax.shop, color: Colors.white, size: 28),
+        child: Icon(Iconsax.health,
+            color: theme.colorScheme.onSecondary, size: 28),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 8.0,
-        height: 65,
+        height: 75,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            _buildNavItem(Iconsax.home, 0),
-            _buildNavItem(Iconsax.search_normal, 1),
+            _buildNavItem(context, theme, Iconsax.home, "Home", 0),
+            _buildNavItem(context, theme, Iconsax.search_normal, "Search", 1),
             const SizedBox(width: 48),
-            _buildNavItem(Iconsax.shopping_cart, 2),
-            _buildNavItem(Iconsax.user, 3),
+            _buildNavItem(context, theme, Iconsax.clock, "History", 2),
+            _buildNavItem(context, theme, Iconsax.user, "Profile", 3),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildNavItem(IconData icon, int index) {
+  Widget _buildNavItem(BuildContext context, ThemeData theme, IconData icon,
+      String label, int index) {
     final bool isSelected = _selectedIndex == index;
-    final Color color = isSelected ? const Color(0xFF74B3CE) : Colors.grey;
-    return IconButton(
-      icon: Icon(icon, color: color, size: 26),
-      onPressed: () => _onItemTapped(index),
+    final Color color = isSelected
+        ? theme.colorScheme.tertiary
+        : theme.colorScheme.onSurface.withValues(alpha: 0.5);
+
+    return Expanded(
+      child: InkWell(
+        onTap: () => _onItemTapped(index),
+        borderRadius: BorderRadius.circular(24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: color, size: 24),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: theme.textTheme.bodySmall?.copyWith(color: color),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -11,36 +11,38 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  // State untuk mengontrol tombol toggle
   final List<bool> _isSelected = [true, false];
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade50,
-        elevation: 0,
+        backgroundColor: colorScheme.surface,
         centerTitle: false,
-        title: const Text(
+        title: Text(
           "Pencarian",
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+          style: textTheme.headlineSmall?.copyWith(
+              color: colorScheme.onSurface, fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(24.0),
         children: [
-          _buildToggleButtons(),
+          _buildToggleButtons(theme),
           const SizedBox(height: 24),
-          _buildSearchBar(),
+          _buildSearchBar(theme),
           const SizedBox(height: 24),
-          _buildSectionTitle("Pencarian Terkini"),
+          _buildSectionTitle(theme, "Pencarian Terkini"),
           const SizedBox(height: 16),
-          _buildRecentSearchItem("Biaya operasi caesar"),
-          _buildRecentSearchItem("Rumah Sakit Tipe A di Jabodetabek"),
+          _buildRecentSearchItem(theme, "Biaya operasi caesar"),
+          _buildRecentSearchItem(theme, "Rumah Sakit Tipe A di Jabodetabek"),
           const SizedBox(height: 24),
-          _buildSectionTitle("Topik Populer"),
+          _buildSectionTitle(theme, "Topik Populer"),
           const SizedBox(height: 16),
           Wrap(
             spacing: 12.0,
@@ -57,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildToggleButtons() {
+  Widget _buildToggleButtons(ThemeData theme) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return ToggleButtons(
@@ -70,10 +72,10 @@ class _SearchScreenState extends State<SearchScreen> {
             });
           },
           borderRadius: BorderRadius.circular(20.0),
-          selectedColor: Colors.white,
-          color: const Color(0xFF004346),
-          fillColor: const Color(0xFF74B3CE),
-          splashColor: const Color(0xFF74B3CE).withAlpha(50),
+          selectedColor: theme.colorScheme.onPrimary,
+          color: theme.colorScheme.primary,
+          fillColor: theme.colorScheme.tertiary,
+          splashColor: theme.colorScheme.tertiary.withValues(alpha: 0.2),
           constraints: BoxConstraints.expand(
               width: (constraints.maxWidth / 2) - 2, height: 40),
           children: const [
@@ -85,39 +87,49 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildSearchBar() {
+  Widget _buildSearchBar(ThemeData theme) {
     return TextField(
       decoration: InputDecoration(
         hintText: "Cari artikel, rumah sakit...",
-        hintStyle: TextStyle(color: Colors.grey.shade500),
-        prefixIcon: const Icon(Iconsax.search_normal),
+        hintStyle: TextStyle(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+        prefixIcon: Icon(Iconsax.search_normal,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: theme.scaffoldBackgroundColor,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: theme.dividerColor),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: theme.dividerColor),
         ),
       ),
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(ThemeData theme, String title) {
     return Text(
       title,
-      style: const TextStyle(
-          fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF004346)),
+      style: theme.textTheme.titleMedium?.copyWith(
+          fontWeight: FontWeight.bold, color: theme.colorScheme.primary),
     );
   }
 
-  Widget _buildRecentSearchItem(String query) {
+  Widget _buildRecentSearchItem(ThemeData theme, String query) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(
         children: [
-          const Icon(Iconsax.clock, color: Colors.grey, size: 20),
+          Icon(Iconsax.clock,
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              size: 20),
           const SizedBox(width: 12),
           Expanded(child: Text(query)),
-          Icon(Iconsax.close_circle, color: Colors.grey.shade400, size: 20),
+          Icon(Iconsax.close_circle,
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              size: 20),
         ],
       ),
     );

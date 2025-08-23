@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../widgets/info_card.dart';
+import '../../../profile/presentation/pages/settings_screen.dart';
 import '../widgets/recent_activity_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,44 +9,39 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
+
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Text(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        title: Text(
           "Aktivitas Terkini",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+          style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Iconsax.notification, color: Colors.black54),
+            icon: Icon(Iconsax.notification, color: colorScheme.onSurface),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Iconsax.setting_2, color: Colors.black54),
-            onPressed: () {},
+            icon: Icon(Iconsax.setting_2, color: colorScheme.onSurface),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
+            },
           ),
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.all(20.0),
-        children: [
-          const RecentActivityCard(),
-          const SizedBox(height: 32),
-          const Text(
-            "Layout Infografis",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          const InfoCard(),
-          const InfoCard(),
-          const InfoCard(),
-          const InfoCard(),
-          const InfoCard(),
+        padding: const EdgeInsets.all(24.0),
+        children: const [
+          RecentActivityCard(),
+          SizedBox(height: 24),
         ],
       ),
     );

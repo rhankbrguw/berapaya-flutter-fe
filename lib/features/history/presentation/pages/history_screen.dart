@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+
 import '../widgets/history_card.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -7,35 +8,41 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Ganti ini dengan data asli nanti
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
+
+    // TODO: Replace with actual backend data
     final bool hasHistory = true;
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade50,
-        elevation: 0,
+        backgroundColor: colorScheme.surface,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           "Riwayat Estimasi",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+          style: textTheme.titleLarge?.copyWith(
+              color: colorScheme.onSurface, fontWeight: FontWeight.bold),
         ),
       ),
-      body: hasHistory ? _buildHistoryList() : _buildEmptyState(),
+      body: hasHistory ? _buildHistoryList() : _buildEmptyState(context, theme),
     );
   }
 
   Widget _buildHistoryList() {
     return ListView.builder(
-      padding: const EdgeInsets.all(20.0),
-      itemCount: 5, // Jumlah dummy data
+      padding: const EdgeInsets.all(24.0),
+      itemCount: 5,
       itemBuilder: (context, index) {
         return const HistoryCard();
       },
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context, ThemeData theme) {
+    final TextTheme textTheme = theme.textTheme;
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -43,18 +50,21 @@ class HistoryScreen extends StatelessWidget {
           Icon(
             Iconsax.document_text_1,
             size: 80,
-            color: Colors.grey.shade300,
+            color: theme.dividerColor,
           ),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             "Belum Ada Riwayat",
-            style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey),
+            style: textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+            ),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             "Hasil estimasi Anda akan muncul di sini.",
-            style: TextStyle(color: Colors.grey),
+            style: textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
           ),
         ],
       ),

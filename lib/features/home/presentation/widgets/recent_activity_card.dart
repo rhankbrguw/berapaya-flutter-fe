@@ -6,10 +6,14 @@ class RecentActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF508991),
+        color: colorScheme.secondary,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -17,43 +21,42 @@ class RecentActivityCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: colorScheme.surface,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Text(
+            child: Text(
               "25\nJUN",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF508991),
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.secondary,
                 fontWeight: FontWeight.bold,
-                fontSize: 14,
                 height: 1.2,
               ),
             ),
           ),
           const SizedBox(width: 16),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Nyeri kepala dan dada",
-                  style: TextStyle(
+                  style: textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.white,
+                    color: colorScheme.onSecondary,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   "Laboratorium Dasar, Konsultasi Dokter Spesialis",
-                  style: TextStyle(color: Colors.white70, fontSize: 12),
+                  style: textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSecondary.withValues(alpha: 0.7)),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
           ),
-          const Icon(Iconsax.arrow_right_3, color: Colors.white),
+          Icon(Iconsax.arrow_right_3, color: colorScheme.onSecondary),
         ],
       ),
     );

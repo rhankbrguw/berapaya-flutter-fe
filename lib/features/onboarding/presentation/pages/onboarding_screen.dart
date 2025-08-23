@@ -1,8 +1,6 @@
-// lib\features\onboarding\presentation\pages\onboarding_screen.dart
 import 'package:flutter/material.dart';
+
 import '../../../authentication/presentation/pages/login_screen.dart';
-import '../../domain/entities/onboarding_content.dart';
-import '../widgets/onboarding_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -15,122 +13,186 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<OnboardingContent> _contentList = [
-    OnboardingContent(
-      image: 'assets/images/logo-1.png',
-      title: 'HITUNG ESTIMASI BIAYA LAYANAN KESEHATAN',
-      description:
+  final List<Map<String, String>> _pageData = [
+    {
+      'image': 'assets/images/logo-1.png',
+      'title': 'HITUNG ESTIMASI BIAYA LAYANAN KESEHATAN',
+      'description':
           'Hitung estimasi biaya layanan kesehatan anda dengan Patient Cost Estimator kami.',
-    ),
-    OnboardingContent(
-      image: 'assets/images/logo-1.png',
-      title: 'TEMUKAN RUMAH SAKIT TERDEKAT',
-      description:
+    },
+    {
+      'image': 'assets/images/logo-1.png',
+      'title': 'TEMUKAN RUMAH SAKIT TERDEKAT',
+      'description':
           'Dapatkan rekomendasi rumah sakit terdekat sesuai dengan kebutuhan dan lokasi Anda.',
-    ),
-    OnboardingContent(
-      image: 'assets/images/logo-1.png',
-      title: 'INFORMASI TRANSPARAN DAN AKURAT',
-      description:
+    },
+    {
+      'image': 'assets/images/logo-1.png',
+      'title': 'INFORMASI TRANSPARAN DAN AKURAT',
+      'description':
           'Kami menyediakan informasi biaya yang transparan untuk perencanaan keuangan yang lebih baik.',
-    ),
+    },
   ];
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _onPageChanged(int page) {
+    setState(() {
+      _currentPage = page;
+    });
+  }
+
+  void _navigateToNextPage() {
+    if (_currentPage == _pageData.length - 1) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+    } else {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    final ThemeData theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      body: Stack(
+        children: [
+          _buildImageSlider(screenSize),
+          _buildContentSheet(screenSize, theme),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageSlider(Size screenSize) {
+    return SizedBox(
+      height: screenSize.height * 0.65,
+      child: PageView.builder(
+        controller: _pageController,
+        itemCount: _pageData.length,
+        onPageChanged: _onPageChanged,
+        itemBuilder: (context, index) {
+          return Container(
+            padding: const EdgeInsets.all(40.0),
+            child: Image.asset(_pageData[index]['image']!),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildContentSheet(Size screenSize, ThemeData theme) {
+    final ButtonStyle customButtonStyle = ElevatedButton.styleFrom(
+      backgroundColor: theme.colorScheme.tertiary,
+      foregroundColor: theme.colorScheme.onPrimary,
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ).merge(theme.elevatedButtonTheme.style);
+
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        height: screenSize.height * 0.45,
+        width: screenSize.width,
+        padding: const EdgeInsets.fromLTRB(24, 32, 24, 32),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 4,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: _contentList.length,
-                onPageChanged: (int page) {
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
-                itemBuilder: (_, i) {
-                  return OnboardingPage(
-                    image: _contentList[i].image,
-                    title: _contentList[i].title,
-                    description: _contentList[i].description,
-                  );
-                },
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        _contentList.length,
-                        (index) => buildDot(index, context),
-                      ),
-                    ),
-                    const Spacer(),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_currentPage == _contentList.length - 1) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginScreen()),
-                            );
-                          } else {
-                            _pageController.nextPage(
-                              duration: const Duration(milliseconds: 400),
-                              curve: Curves.easeInOut,
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF74B3CE),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          _currentPage == _contentList.length - 1
-                              ? "Done"
-                              : "Next",
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              ),
-            ),
+            _buildPageIndicatorRow(theme),
+            const SizedBox(height: 24),
+            _buildAnimatedTitle(theme),
+            const SizedBox(height: 8),
+            _buildAnimatedDescription(theme),
+            const Spacer(),
+            _buildNextButton(customButtonStyle),
           ],
         ),
       ),
     );
   }
 
-  AnimatedContainer buildDot(int index, BuildContext context) {
+  Widget _buildPageIndicatorRow(ThemeData theme) {
+    return Row(
+      children: List.generate(
+        _pageData.length,
+        (index) => _buildPageIndicatorDot(index, theme),
+      ),
+    );
+  }
+
+  Widget _buildPageIndicatorDot(int index, ThemeData theme) {
+    bool isActive = _currentPage == index;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      margin: const EdgeInsets.only(right: 5),
+      margin: const EdgeInsets.only(right: 8),
       height: 8,
-      width: _currentPage == index ? 24 : 8,
+      width: isActive ? 24 : 8,
       decoration: BoxDecoration(
-        color: _currentPage == index
-            ? const Color(0xFF74B3CE)
-            : Colors.grey.shade400,
+        color: isActive ? theme.colorScheme.tertiary : theme.disabledColor,
         borderRadius: BorderRadius.circular(4),
+      ),
+    );
+  }
+
+  Widget _buildAnimatedTitle(ThemeData theme) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      transitionBuilder: (child, animation) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+      child: Text(
+        _pageData[_currentPage]['title']!,
+        key: ValueKey<String>(_pageData[_currentPage]['title']!),
+        style: theme.textTheme.titleLarge?.copyWith(fontSize: 24),
+        textAlign: TextAlign.left,
+      ),
+    );
+  }
+
+  Widget _buildAnimatedDescription(ThemeData theme) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      transitionBuilder: (child, animation) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+      child: Text(
+        _pageData[_currentPage]['description']!,
+        key: ValueKey<String>(_pageData[_currentPage]['description']!),
+        style: theme.textTheme.bodyMedium,
+        textAlign: TextAlign.left,
+      ),
+    );
+  }
+
+  Widget _buildNextButton(ButtonStyle buttonStyle) {
+    final bool isLastPage = _currentPage == _pageData.length - 1;
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        style: buttonStyle,
+        onPressed: _navigateToNextPage,
+        child: Text(isLastPage ? "Mulai" : "Next"),
       ),
     );
   }

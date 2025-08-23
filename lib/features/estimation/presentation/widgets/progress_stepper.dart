@@ -12,6 +12,8 @@ class ProgressStepper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return Row(
       children: List.generate(totalSteps, (index) {
         return Expanded(
@@ -20,8 +22,8 @@ class ProgressStepper extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 2),
             decoration: BoxDecoration(
               color: index < currentStep
-                  ? const Color(0xFF74B3CE)
-                  : Colors.grey.shade300,
+                  ? theme.colorScheme.tertiary
+                  : theme.dividerColor,
               borderRadius: BorderRadius.circular(4),
             ),
           ),

@@ -17,17 +17,22 @@ class ProfileMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return ListTile(
       onTap: onTap,
-      leading: Icon(icon, color: const Color(0xFF74B3CE)),
+      leading: Icon(icon, color: theme.colorScheme.tertiary),
       title: Text(
         title,
-        style: TextStyle(fontWeight: FontWeight.w500, color: textColor),
+        style: theme.textTheme.bodyLarge?.copyWith(
+          fontWeight: FontWeight.w500,
+          color: textColor,
+        ),
       ),
       trailing: Icon(
         Iconsax.arrow_right_3,
         size: 18,
-        color: Colors.grey.shade400,
+        color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
       ),
     );
   }

@@ -15,16 +15,21 @@ class ServiceSelectionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFD6F3F4) : Colors.white,
+          color:
+              isSelected ? theme.scaffoldBackgroundColor : colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? const Color(0xFF74B3CE) : Colors.grey.shade300,
+            color: isSelected ? colorScheme.tertiary : theme.dividerColor,
           ),
         ),
         child: Row(
@@ -32,15 +37,15 @@ class ServiceSelectionTile extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: textTheme.bodyMedium?.copyWith(
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected ? const Color(0xFF004346) : Colors.black87,
+                color: isSelected ? colorScheme.primary : colorScheme.onSurface,
               ),
             ),
             if (isSelected)
-              const Icon(
+              Icon(
                 Iconsax.tick_circle,
-                color: Color(0xFF74B3CE),
+                color: colorScheme.tertiary,
               ),
           ],
         ),
