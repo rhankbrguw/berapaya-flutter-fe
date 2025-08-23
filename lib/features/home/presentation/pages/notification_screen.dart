@@ -1,6 +1,6 @@
+import 'package:berapaya_fe_flutter/app/core/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:berapaya_fe_flutter/app/core/constants/color_constants.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -11,9 +11,9 @@ class NotificationScreen extends StatelessWidget {
     final textTheme = theme.textTheme;
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: AppColors.backgroundLight,
+        backgroundColor: theme.colorScheme.surface,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.darkestText),

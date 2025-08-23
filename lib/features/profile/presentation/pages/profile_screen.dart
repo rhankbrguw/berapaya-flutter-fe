@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+
+import '../../../authentication/presentation/pages/login_screen.dart';
+import '../widgets/profile_menu_item.dart';
 import 'edit_profile_screen.dart';
 import 'notification_setting.dart';
 import 'tooltip.dart';
-import '../widgets/profile_menu_item.dart';
-import '../../../authentication/presentation/pages/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
