@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../app/core/constants/color_constants.dart';
 
 class RecommendationClassCard extends StatelessWidget {
   final String className;
@@ -20,8 +19,9 @@ class RecommendationClassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -30,12 +30,12 @@ class RecommendationClassCard extends StatelessWidget {
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border:
-            isBest ? Border.all(color: AppColors.accentBlue, width: 1.5) : null,
+            isBest ? Border.all(color: colorScheme.tertiary, width: 1.5) : null,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withAlpha(20),
-            spreadRadius: 1,
+            color: theme.shadowColor.withOpacity(0.05),
             blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -53,33 +53,40 @@ class RecommendationClassCard extends StatelessWidget {
                   originalPrice!,
                   style: textTheme.bodySmall?.copyWith(
                       decoration: TextDecoration.lineThrough,
-                      color: AppColors.grey),
+                      color: colorScheme.onSurface.withOpacity(0.6)),
                 ),
               if (discount != null)
                 Container(
+                  margin: const EdgeInsets.only(top: 4),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: Colors.orange.shade100,
+                    color: colorScheme.errorContainer.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
                     discount!,
-                    style: TextStyle(
-                        color: Colors.orange.shade800,
-                        fontSize: 12,
+                    style: textTheme.labelSmall?.copyWith(
+                        color: colorScheme.onErrorContainer,
                         fontWeight: FontWeight.w500),
                   ),
                 ),
             ],
           ),
-          if (isBest)
-            const CircleAvatar(
-              backgroundColor: AppColors.accentBlue,
-              radius: 14,
-              child: Icon(Iconsax.star_1, color: AppColors.white, size: 16),
-            ),
-          Text(price, style: textTheme.titleLarge),
+          Row(
+            children: [
+              Text(price, style: textTheme.titleLarge),
+              if (isBest) ...[
+                const SizedBox(width: 16),
+                CircleAvatar(
+                  backgroundColor: colorScheme.tertiary,
+                  radius: 14,
+                  child: Icon(Iconsax.star_1,
+                      color: colorScheme.onPrimary, size: 16),
+                ),
+              ]
+            ],
+          ),
         ],
       ),
     );

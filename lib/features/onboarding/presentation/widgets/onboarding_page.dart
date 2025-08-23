@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../app/core/constants/color_constants.dart';
 
 class OnboardingPage extends StatelessWidget {
   final String image;
@@ -45,7 +44,7 @@ class OnboardingPage extends StatelessWidget {
                   description,
                   textAlign: TextAlign.center,
                   style: textTheme.bodyLarge?.copyWith(
-                    color: AppColors.grey,
+                    color: colorScheme.onSurface.withOpacity(0.6),
                   ),
                 ),
               ],

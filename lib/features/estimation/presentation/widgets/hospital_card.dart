@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../app/core/constants/color_constants.dart';
 
 class HospitalCard extends StatefulWidget {
   const HospitalCard({super.key});
@@ -20,8 +19,9 @@ class _HospitalCardState extends State<HospitalCard> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Container(
       decoration: BoxDecoration(
@@ -29,9 +29,8 @@ class _HospitalCardState extends State<HospitalCard> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withAlpha(25),
-            spreadRadius: 2,
-            blurRadius: 10,
+            color: theme.primaryColor.withOpacity(0.05),
+            blurRadius: 15,
             offset: const Offset(0, 5),
           ),
         ],
@@ -42,7 +41,7 @@ class _HospitalCardState extends State<HospitalCard> {
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: Image.network(
-              "https://placehold.co/600x400/d6f3f4/172a3a?text=RS+Ukrida",
+              "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=2073&auto=format&fit=crop",
               height: 180,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -57,14 +56,15 @@ class _HospitalCardState extends State<HospitalCard> {
                 const SizedBox(height: 8),
                 Text(
                   "Jl. Arjuna Utara No.6, RT.6/RW.2, Duri Kepa, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11510",
-                  style: textTheme.bodyMedium?.copyWith(color: AppColors.grey),
+                  style: textTheme.bodyMedium
+                      ?.copyWith(color: colorScheme.onSurface.withOpacity(0.6)),
                 ),
                 const SizedBox(height: 8),
                 AnimatedSize(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
                   child: _isExpanded
-                      ? _buildExpandedContent()
+                      ? _buildExpandedContent(context, theme)
                       : const SizedBox.shrink(),
                 ),
                 GestureDetector(
@@ -75,14 +75,14 @@ class _HospitalCardState extends State<HospitalCard> {
                       Text(
                         _isExpanded ? "See Less" : "See More",
                         style: textTheme.bodyMedium?.copyWith(
-                          color: AppColors.accentBlue,
+                          color: colorScheme.tertiary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(width: 4),
                       Icon(
                         _isExpanded ? Iconsax.arrow_up_2 : Iconsax.arrow_down_1,
-                        color: AppColors.accentBlue,
+                        color: colorScheme.tertiary,
                         size: 16,
                       ),
                     ],
@@ -93,9 +93,10 @@ class _HospitalCardState extends State<HospitalCard> {
                     style: textTheme.bodyLarge
                         ?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
-                _buildReasonItem("Terdekat dengan Anda"),
-                _buildReasonItem("Biaya cocok dengan profile anda"),
+                _buildReasonItem(context, theme, "Terdekat dengan Anda"),
                 _buildReasonItem(
+                    context, theme, "Biaya cocok dengan profile anda"),
+                _buildReasonItem(context, theme,
                     "Konsultasikan dengan pihak rumah sakit untuk informasi biaya yang lebih akurat."),
               ],
             ),
@@ -105,13 +106,13 @@ class _HospitalCardState extends State<HospitalCard> {
     );
   }
 
-  Widget _buildReasonItem(String text) {
+  Widget _buildReasonItem(BuildContext context, ThemeData theme, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Iconsax.star_1, color: AppColors.accentBlue, size: 18),
+          Icon(Iconsax.star_1, color: theme.colorScheme.tertiary, size: 18),
           const SizedBox(width: 8),
           Expanded(
               child: Text(text, style: Theme.of(context).textTheme.bodyMedium)),
@@ -120,7 +121,7 @@ class _HospitalCardState extends State<HospitalCard> {
     );
   }
 
-  Widget _buildExpandedContent() {
+  Widget _buildExpandedContent(BuildContext context, ThemeData theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -131,11 +132,11 @@ class _HospitalCardState extends State<HospitalCard> {
                 .titleMedium
                 ?.copyWith(fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
-        _buildReasonItem("RSU Kelas B"),
-        _buildReasonItem("RS rujukan tingkat kabupaten."),
-        _buildReasonItem(
+        _buildReasonItem(context, theme, "RSU Kelas B"),
+        _buildReasonItem(context, theme, "RS rujukan tingkat kabupaten."),
+        _buildReasonItem(context, theme,
             "Memiliki spesialisasi dasar (Penyakit Dalam, Bedah, Anak, Obgyn)."),
-        _buildReasonItem(
+        _buildReasonItem(context, theme,
             "Pelayanan terbatas, untuk kasus ringan hingga menengah."),
         const SizedBox(height: 8),
       ],

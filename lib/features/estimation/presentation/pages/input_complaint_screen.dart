@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../app/core/constants/color_constants.dart';
+import 'package:iconsax/iconsax.dart';
 import '../widgets/progress_stepper.dart';
 import '../widgets/service_selection_tile.dart';
 import 'patient_profile_screen.dart';
@@ -34,28 +33,28 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         backgroundColor: colorScheme.surface,
-        elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
+          icon: Icon(Iconsax.arrow_left_2, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
             child: ProgressStepper(currentStep: 1, totalSteps: 3),
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -64,57 +63,23 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
                           ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
                   Text("Deskripsikan keluhan yang anda rasakan",
-                      style: textTheme.bodyMedium
-                          ?.copyWith(color: AppColors.grey)),
+                      style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurface.withOpacity(0.6))),
                   const SizedBox(height: 16),
-                  TextField(
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                      hintText: "Contoh: Nyeri kepala di bagian belakang",
-                      hintStyle: const TextStyle(color: AppColors.grey),
-                      filled: true,
-                      fillColor: colorScheme.surface,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
+                  _buildComplaintTextField(theme),
+                  const SizedBox(height: 24),
                   Text("Sudah Punya Diagnosis?",
                       style: textTheme.bodyLarge
                           ?.copyWith(fontWeight: FontWeight.w600)),
-                  Row(
-                    children: [
-                      Radio<int>(
-                        value: 1,
-                        groupValue: _diagnosisGroupValue,
-                        onChanged: (value) =>
-                            setState(() => _diagnosisGroupValue = value),
-                      ),
-                      const Text("Ya"),
-                      const SizedBox(width: 24),
-                      Radio<int>(
-                        value: 2,
-                        groupValue: _diagnosisGroupValue,
-                        onChanged: (value) =>
-                            setState(() => _diagnosisGroupValue = value),
-                      ),
-                      const Text("Tidak"),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
+                  _buildDiagnosisRadioButtons(),
+                  const SizedBox(height: 24),
                   Text("Layanan Kesehatan",
                       style: textTheme.headlineSmall
                           ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
                   Text("Pilih layanan kesehatan yang anda inginkan",
-                      style: textTheme.bodyMedium
-                          ?.copyWith(color: AppColors.grey)),
+                      style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurface.withOpacity(0.6))),
                   const SizedBox(height: 16),
                   for (final service in _services)
                     ServiceSelectionTile(
@@ -122,18 +87,64 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
                       isSelected: _selectedServices.contains(service),
                       onTap: () => _toggleService(service),
                     ),
-                  _buildAddServiceButton(context),
+                  _buildAddServiceButton(context, theme),
                 ],
               ),
             ),
           ),
-          _buildBottomButton(context),
+          _buildBottomButton(context, theme),
         ],
       ),
     );
   }
 
-  Widget _buildAddServiceButton(BuildContext context) {
+  Widget _buildComplaintTextField(ThemeData theme) {
+    return TextField(
+      maxLines: 4,
+      cursorColor: theme.colorScheme.tertiary,
+      decoration: InputDecoration(
+        hintText: "Contoh: Nyeri kepala di bagian belakang",
+        hintStyle:
+            TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.4)),
+        filled: true,
+        fillColor: theme.colorScheme.surface,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: theme.dividerColor),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: theme.dividerColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: theme.colorScheme.tertiary, width: 1.5),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDiagnosisRadioButtons() {
+    return Row(
+      children: [
+        Radio<int>(
+          value: 1,
+          groupValue: _diagnosisGroupValue,
+          onChanged: (value) => setState(() => _diagnosisGroupValue = value),
+        ),
+        const Text("Ya"),
+        const SizedBox(width: 24),
+        Radio<int>(
+          value: 2,
+          groupValue: _diagnosisGroupValue,
+          onChanged: (value) => setState(() => _diagnosisGroupValue = value),
+        ),
+        const Text("Tidak"),
+      ],
+    );
+  }
+
+  Widget _buildAddServiceButton(BuildContext context, ThemeData theme) {
     return GestureDetector(
       onTap: () {},
       child: Container(
@@ -141,27 +152,29 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: Colors.grey.shade300,
-          ),
+          border: Border.all(color: theme.dividerColor),
         ),
         child: Text(
           "Tambah +",
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
-              ?.copyWith(color: AppColors.grey),
+          style: theme.textTheme.bodyMedium
+              ?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.6)),
         ),
       ),
     );
   }
 
-  Widget _buildBottomButton(BuildContext context) {
+  Widget _buildBottomButton(BuildContext context, ThemeData theme) {
+    final ButtonStyle customButtonStyle = ElevatedButton.styleFrom(
+      backgroundColor: theme.colorScheme.tertiary,
+      foregroundColor: theme.colorScheme.onPrimary,
+      padding: const EdgeInsets.symmetric(vertical: 16),
+    ).merge(theme.elevatedButtonTheme.style);
+
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
-      color: Theme.of(context).colorScheme.surface,
+      padding: const EdgeInsets.fromLTRB(24, 32, 24, 32),
+      color: theme.colorScheme.surface,
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -172,15 +185,8 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
                   builder: (context) => const PatientProfileScreen()),
             );
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.accentBlue,
-            foregroundColor: AppColors.white,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          child: const Text("Next"),
+          style: customButtonStyle,
+          child: const Text("Selanjutnya"),
         ),
       ),
     );

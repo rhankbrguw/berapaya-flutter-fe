@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../app/core/constants/color_constants.dart';
 
 class RecentActivityCard extends StatelessWidget {
   const RecentActivityCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.secondaryTeal,
+        color: colorScheme.secondary,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -28,7 +28,7 @@ class RecentActivityCard extends StatelessWidget {
               "25\nJUN",
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium?.copyWith(
-                color: AppColors.secondaryTeal,
+                color: colorScheme.secondary,
                 fontWeight: FontWeight.bold,
                 height: 1.2,
               ),
@@ -43,20 +43,20 @@ class RecentActivityCard extends StatelessWidget {
                   "Nyeri kepala dan dada",
                   style: textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: AppColors.white,
+                    color: colorScheme.onSecondary,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   "Laboratorium Dasar, Konsultasi Dokter Spesialis",
-                  style: textTheme.bodySmall
-                      ?.copyWith(color: AppColors.white.withAlpha(178)),
+                  style: textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSecondary.withOpacity(0.7)),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
           ),
-          const Icon(Iconsax.arrow_right_3, color: AppColors.white),
+          Icon(Iconsax.arrow_right_3, color: colorScheme.onSecondary),
         ],
       ),
     );

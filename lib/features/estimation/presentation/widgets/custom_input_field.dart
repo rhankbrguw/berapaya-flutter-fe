@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../app/core/constants/color_constants.dart';
 
 class CustomInputField extends StatelessWidget {
   final String label;
@@ -15,8 +14,8 @@ class CustomInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,18 +27,25 @@ class CustomInputField extends StatelessWidget {
         const SizedBox(height: 8),
         TextField(
           keyboardType: keyboardType,
+          cursorColor: theme.colorScheme.tertiary,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(color: AppColors.grey),
+            hintStyle:
+                TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.4)),
             filled: true,
-            fillColor: colorScheme.surface,
+            fillColor: theme.colorScheme.surface,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.grey.shade300),
+              borderSide: BorderSide(color: theme.dividerColor),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.grey.shade300),
+              borderSide: BorderSide(color: theme.dividerColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide:
+                  BorderSide(color: theme.colorScheme.tertiary, width: 1.5),
             ),
           ),
         ),

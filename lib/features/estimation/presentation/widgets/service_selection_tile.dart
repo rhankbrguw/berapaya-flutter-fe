@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../app/core/constants/color_constants.dart';
 
 class ServiceSelectionTile extends StatelessWidget {
   final String title;
@@ -16,8 +15,9 @@ class ServiceSelectionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return GestureDetector(
       onTap: onTap,
@@ -25,10 +25,11 @@ class ServiceSelectionTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.backgroundLight : colorScheme.surface,
+          color:
+              isSelected ? theme.scaffoldBackgroundColor : colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? AppColors.accentBlue : Colors.grey.shade300,
+            color: isSelected ? colorScheme.tertiary : theme.dividerColor,
           ),
         ),
         child: Row(
@@ -38,15 +39,13 @@ class ServiceSelectionTile extends StatelessWidget {
               title,
               style: textTheme.bodyMedium?.copyWith(
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected
-                    ? AppColors.primaryDarkGreen
-                    : colorScheme.onSurface,
+                color: isSelected ? colorScheme.primary : colorScheme.onSurface,
               ),
             ),
             if (isSelected)
-              const Icon(
+              Icon(
                 Iconsax.tick_circle,
-                color: AppColors.accentBlue,
+                color: colorScheme.tertiary,
               ),
           ],
         ),

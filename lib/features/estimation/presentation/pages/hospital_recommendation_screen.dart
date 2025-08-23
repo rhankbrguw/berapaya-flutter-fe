@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../app/core/constants/color_constants.dart';
+
 import 'estimation_result_screen.dart';
 import 'hospital_detail_screen.dart';
 
@@ -9,51 +9,61 @@ class HospitalRecommendationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 0,
+        backgroundColor: colorScheme.surface,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
+          icon: Icon(Iconsax.arrow_left_2, color: colorScheme.onSurface),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text("Kelas A",
-            style:
-                textTheme.titleLarge?.copyWith(color: colorScheme.onSurface)),
+        title: Text(
+          "Golongan A",
+          style: textTheme.titleLarge?.copyWith(
+            color: colorScheme.onSurface,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
         child: Column(
           children: [
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 16),
-                    _buildHospitalCard(context),
-                  ],
-                ),
+              child: ListView(
+                children: [
+                  _buildHospitalCard(context, theme),
+                ],
               ),
             ),
-            _buildBottomButton(context),
+            _buildBottomButton(context, theme),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHospitalCard(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
+  Widget _buildHospitalCard(BuildContext context, ThemeData theme) {
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Container(
+      margin: const EdgeInsets.only(top: 16),
       decoration: BoxDecoration(
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: theme.primaryColor.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +71,7 @@ class HospitalRecommendationScreen extends StatelessWidget {
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: Image.network(
-              "https://placehold.co/600x400/d6f3f4/172a3a?text=RS+Ukrida",
+              "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=2073&auto=format&fit=crop",
               height: 180,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -72,13 +82,19 @@ class HospitalRecommendationScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Rumah Sakit Ukrida",
-                    style: textTheme.titleLarge
-                        ?.copyWith(color: colorScheme.onSurface)),
+                Text(
+                  "Rumah Sakit Ukrida",
+                  style: textTheme.titleLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 8),
                 Text(
                   "Jl. Arjuna Utara No.6, RT.6/RW.2, Duri Kepa, Kec. Kb. Jeruk, Kota Jakarta Barat...",
-                  style: textTheme.bodyMedium?.copyWith(color: AppColors.grey),
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurface.withOpacity(0.6),
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
@@ -92,23 +108,31 @@ class HospitalRecommendationScreen extends StatelessWidget {
                       );
                     },
                     style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.grey.shade300),
+                      side: BorderSide(color: theme.dividerColor),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
+                          borderRadius: BorderRadius.circular(12)),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    child: Text("Lihat Detail",
-                        style: TextStyle(color: colorScheme.onSurface)),
+                    child: Text(
+                      "Lihat Detail",
+                      style: textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onSurface,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 24),
-                Text("Alasan Rekomendasi:",
-                    style: textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.onSurface)),
+                Text(
+                  "Alasan Rekomendasi:",
+                  style: textTheme.bodyLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 8),
-                _buildReasonItem(context, "Terdekat dengan Anda"),
-                _buildReasonItem(context, "Biaya cocok dengan profile anda"),
-                _buildReasonItem(context,
+                _buildReasonItem(context, theme, "Terdekat dengan Anda"),
+                _buildReasonItem(
+                    context, theme, "Biaya cocok dengan profile anda"),
+                _buildReasonItem(context, theme,
                     "Konsultasikan dengan pihak rumah sakit untuk informasi biaya yang lebih akurat."),
               ],
             ),
@@ -118,24 +142,31 @@ class HospitalRecommendationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildReasonItem(BuildContext context, String text) {
+  Widget _buildReasonItem(BuildContext context, ThemeData theme, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Iconsax.star_1, color: AppColors.accentBlue, size: 18),
+          Icon(Iconsax.star_1, color: theme.colorScheme.tertiary, size: 18),
           const SizedBox(width: 8),
           Expanded(
-              child: Text(text, style: Theme.of(context).textTheme.bodyMedium)),
+            child: Text(text, style: theme.textTheme.bodyMedium),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildBottomButton(BuildContext context) {
+  Widget _buildBottomButton(BuildContext context, ThemeData theme) {
+    final ButtonStyle customButtonStyle = ElevatedButton.styleFrom(
+      backgroundColor: theme.colorScheme.tertiary,
+      foregroundColor: theme.colorScheme.onPrimary,
+      padding: const EdgeInsets.symmetric(vertical: 16),
+    ).merge(theme.elevatedButtonTheme.style);
+
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 30),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -146,11 +177,7 @@ class HospitalRecommendationScreen extends StatelessWidget {
                   builder: (context) => const EstimationResultScreen()),
             );
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.accentBlue,
-            foregroundColor: AppColors.white,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-          ),
+          style: customButtonStyle,
           child: const Text("Detail Estimasi"),
         ),
       ),

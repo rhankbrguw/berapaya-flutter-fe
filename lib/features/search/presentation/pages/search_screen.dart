@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../app/core/constants/color_constants.dart';
 import '../widgets/category_chip.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -15,14 +14,14 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         backgroundColor: colorScheme.surface,
-        elevation: 0,
         centerTitle: false,
         title: Text(
           "Pencarian",
@@ -31,18 +30,18 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(24.0),
         children: [
-          _buildToggleButtons(),
+          _buildToggleButtons(theme),
           const SizedBox(height: 24),
-          _buildSearchBar(context),
+          _buildSearchBar(theme),
           const SizedBox(height: 24),
-          _buildSectionTitle(context, "Pencarian Terkini"),
+          _buildSectionTitle(theme, "Pencarian Terkini"),
           const SizedBox(height: 16),
-          _buildRecentSearchItem("Biaya operasi caesar"),
-          _buildRecentSearchItem("Rumah Sakit Tipe A di Jabodetabek"),
+          _buildRecentSearchItem(theme, "Biaya operasi caesar"),
+          _buildRecentSearchItem(theme, "Rumah Sakit Tipe A di Jabodetabek"),
           const SizedBox(height: 24),
-          _buildSectionTitle(context, "Topik Populer"),
+          _buildSectionTitle(theme, "Topik Populer"),
           const SizedBox(height: 16),
           Wrap(
             spacing: 12.0,
@@ -59,7 +58,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildToggleButtons() {
+  Widget _buildToggleButtons(ThemeData theme) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return ToggleButtons(
@@ -72,10 +71,10 @@ class _SearchScreenState extends State<SearchScreen> {
             });
           },
           borderRadius: BorderRadius.circular(20.0),
-          selectedColor: AppColors.white,
-          color: AppColors.primaryDarkGreen,
-          fillColor: AppColors.accentBlue,
-          splashColor: AppColors.accentBlue.withAlpha(51),
+          selectedColor: theme.colorScheme.onPrimary,
+          color: theme.colorScheme.primary,
+          fillColor: theme.colorScheme.tertiary,
+          splashColor: theme.colorScheme.tertiary.withOpacity(0.2),
           constraints: BoxConstraints.expand(
               width: (constraints.maxWidth / 2) - 2, height: 40),
           children: const [
@@ -87,39 +86,47 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildSearchBar(BuildContext context) {
+  Widget _buildSearchBar(ThemeData theme) {
     return TextField(
       decoration: InputDecoration(
         hintText: "Cari artikel, rumah sakit...",
-        hintStyle: const TextStyle(color: AppColors.grey),
-        prefixIcon: const Icon(Iconsax.search_normal),
+        hintStyle:
+            TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.4)),
+        prefixIcon: Icon(Iconsax.search_normal,
+            color: theme.colorScheme.onSurface.withOpacity(0.6)),
         filled: true,
-        fillColor: Theme.of(context).colorScheme.surface,
+        fillColor: theme.scaffoldBackgroundColor,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: theme.dividerColor),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: theme.dividerColor),
         ),
       ),
     );
   }
 
-  Widget _buildSectionTitle(BuildContext context, String title) {
+  Widget _buildSectionTitle(ThemeData theme, String title) {
     return Text(
       title,
-      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-          fontWeight: FontWeight.bold, color: AppColors.primaryDarkGreen),
+      style: theme.textTheme.titleMedium?.copyWith(
+          fontWeight: FontWeight.bold, color: theme.colorScheme.primary),
     );
   }
 
-  Widget _buildRecentSearchItem(String query) {
+  Widget _buildRecentSearchItem(ThemeData theme, String query) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(
         children: [
-          const Icon(Iconsax.clock, color: AppColors.grey, size: 20),
+          Icon(Iconsax.clock,
+              color: theme.colorScheme.onSurface.withOpacity(0.6), size: 20),
           const SizedBox(width: 12),
           Expanded(child: Text(query)),
-          const Icon(Iconsax.close_circle, color: AppColors.grey, size: 20),
+          Icon(Iconsax.close_circle,
+              color: theme.colorScheme.onSurface.withOpacity(0.6), size: 20),
         ],
       ),
     );
