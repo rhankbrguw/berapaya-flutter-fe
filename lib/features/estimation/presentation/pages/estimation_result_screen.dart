@@ -63,7 +63,7 @@ class EstimationResultScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.blue.withAlpha(13), // Fix: withOpacity -> withAlpha
+              color: Colors.blue.withAlpha(13),
               borderRadius: BorderRadius.circular(8),
             ),
             child: _buildCostRow("Total", "Rp370.000", isTotal: true),
@@ -114,7 +114,7 @@ class EstimationResultScreen extends StatelessWidget {
 
   Widget _buildBottomButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.only(top: 10, bottom: 30), // Perubahan di sini
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(

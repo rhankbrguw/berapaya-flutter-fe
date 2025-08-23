@@ -116,7 +116,7 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
                     style: TextStyle(color: Colors.grey, fontSize: 14),
                   ),
                   const SizedBox(height: 16),
-                  for (final service in _services) // Fix: Unnecessary toList
+                  for (final service in _services)
                     ServiceSelectionTile(
                       title: service,
                       isSelected: _selectedServices.contains(service),
@@ -135,9 +135,7 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
 
   Widget _buildAddServiceButton() {
     return GestureDetector(
-      onTap: () {
-        // Logika untuk menampilkan dialog tambah layanan
-      },
+      onTap: () {},
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -159,7 +157,7 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
 
   Widget _buildBottomButton(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 30), // Perubahan di sini
       color: Colors.grey.shade50,
       child: SizedBox(
         width: double.infinity,

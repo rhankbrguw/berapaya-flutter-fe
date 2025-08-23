@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'medical_history_screen.dart';
-import '../widgets/custom_dropdown_field.dart';
-import '../widgets/custom_input_field.dart';
-import '../widgets/progress_stepper.dart';
+import '../../../estimation/presentation/widgets/custom_dropdown_field.dart';
+import '../../../estimation/presentation/widgets/custom_input_field.dart';
 
-class PatientProfileScreen extends StatefulWidget {
-  const PatientProfileScreen({super.key});
+class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
 
   @override
-  State<PatientProfileScreen> createState() => _PatientProfileScreenState();
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _PatientProfileScreenState extends State<PatientProfileScreen> {
+class _EditProfileScreenState extends State<EditProfileScreen> {
   String? _selectedGender;
+  String? _selectedInsurance;
   String? _selectedLocation;
-  String? _selectedBudget;
+  String? _selectedJob;
 
   @override
   Widget build(BuildContext context) {
@@ -27,24 +26,19 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        title: const Text(
+          "Profil Pengguna",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ProgressStepper(currentStep: 2, totalSteps: 3),
-            const SizedBox(height: 24),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Profil Calon Pasien",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
                     const SizedBox(height: 24),
                     const CustomInputField(
                         label: "Nama", hintText: "Masukkan nama lengkap"),
@@ -64,6 +58,20 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                     ),
                     const SizedBox(height: 16),
                     CustomDropdownField(
+                      label: "Asuransi",
+                      hint: "Pilih asuransi",
+                      value: _selectedInsurance,
+                      items: const [
+                        "BPJS",
+                        "Prudential",
+                        "Allianz",
+                        "Tidak Punya"
+                      ],
+                      onChanged: (value) =>
+                          setState(() => _selectedInsurance = value),
+                    ),
+                    const SizedBox(height: 16),
+                    CustomDropdownField(
                       label: "Lokasi saat ini",
                       hint: "Pilih lokasi",
                       value: _selectedLocation,
@@ -72,24 +80,24 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                         "Bogor",
                         "Depok",
                         "Tangerang",
-                        "Bekasi",
+                        "Bekasi"
                       ],
                       onChanged: (value) =>
                           setState(() => _selectedLocation = value),
                     ),
                     const SizedBox(height: 16),
                     CustomDropdownField(
-                      label: "Berapa estimasi dana yang Anda siapkan?",
-                      hint: "Pilih rentang dana",
-                      value: _selectedBudget,
+                      label: "Pekerjaan",
+                      hint: "Pilih pekerjaan",
+                      value: _selectedJob,
                       items: const [
-                        "< 200.000",
-                        "< 500.000",
-                        "< 1.000.000",
-                        "> 1.000.000"
+                        "PNS",
+                        "Swasta",
+                        "Wiraswasta",
+                        "Pelajar/Mahasiswa"
                       ],
                       onChanged: (value) =>
-                          setState(() => _selectedBudget = value),
+                          setState(() => _selectedJob = value),
                     ),
                   ],
                 ),
@@ -104,16 +112,12 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
 
   Widget _buildBottomButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 30), // Perubahan di sini
+      padding: const EdgeInsets.only(top: 10, bottom: 30),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MedicalHistoryScreen()),
-            );
+            Navigator.of(context).pop();
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF74B3CE),
@@ -122,7 +126,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: const Text("Next", style: TextStyle(color: Colors.white)),
+          child: const Text("Simpan", style: TextStyle(color: Colors.white)),
         ),
       ),
     );

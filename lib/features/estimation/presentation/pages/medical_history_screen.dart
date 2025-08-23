@@ -93,7 +93,7 @@ class MedicalHistoryScreen extends StatelessWidget {
 
   Widget _buildBottomButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.only(top: 10, bottom: 30),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../estimation/presentation/pages/input_complaint_screen.dart';
+import '../../../history/presentation/pages/history_screen.dart';
 import '../../../home/presentation/pages/home_screen.dart';
+import '../../../profile/presentation/pages/profile_screen.dart';
+import '../../../search/presentation/pages/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
   final int initialIndex;
@@ -22,9 +25,9 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _pages = [
     const HomeScreen(),
-    const Center(child: Text('Search Page')),
-    const Center(child: Text('History Page')),
-    const Center(child: Text('Profile Page')),
+    const SearchScreen(),
+    const HistoryScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
