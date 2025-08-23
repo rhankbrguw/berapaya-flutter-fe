@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'notification_screen.dart';
 
 import '../widgets/info_card.dart';
 import '../widgets/recent_activity_card.dart';
@@ -24,7 +25,13 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Iconsax.notification, color: Colors.black54),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const NotificationScreen()),
+              );
+            },
           ),
           IconButton(
             icon: const Icon(Iconsax.setting_2, color: Colors.black54),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'edit_profile_screen.dart';
+import 'edit_pengaturan_notifikasi_screen.dart';
+import 'pusat_bantuan_screen.dart';
 import '../widgets/profile_menu_item.dart';
+import '../../../authentication/presentation/pages/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -16,7 +19,8 @@ class ProfileScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           "Profil",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
       body: SingleChildScrollView(
@@ -68,12 +72,24 @@ class ProfileScreen extends StatelessWidget {
           ProfileMenuItem(
             icon: Iconsax.notification,
             title: "Pengaturan Notifikasi",
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const EditPengaturanNotifikasi()),
+              );
+            },
           ),
           ProfileMenuItem(
             icon: Iconsax.support,
             title: "Pusat Bantuan",
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const PusatBantuanScreen()),
+              );
+            },
           ),
           const Divider(indent: 20, endIndent: 20),
           ProfileMenuItem(
@@ -81,11 +97,48 @@ class ProfileScreen extends StatelessWidget {
             title: "Logout",
             textColor: Colors.red,
             onTap: () {
-            
+              _showLogoutConfirmationDialog(context);
             },
           ),
         ],
       ),
+    );
+  }
+
+  // Fungsi untuk menampilkan modal konfirmasi logout
+  void _showLogoutConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: const Text("Keluar dari Akun Anda",
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          content: const Text("Lanjutkan untuk keluar?"),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Batal",
+                  style: TextStyle(color: Colors.grey)),
+              onPressed: () {
+                Navigator.of(context).pop(); // Tutup modal
+              },
+            ),
+            TextButton(
+              child: const Text("Lanjutkan",
+                  style: TextStyle(color: Colors.red)),
+              onPressed: () {
+                // Tutup modal lalu navigasi ke halaman login dan hapus riwayat navigasi
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
