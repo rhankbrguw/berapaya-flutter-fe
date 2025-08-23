@@ -13,6 +13,8 @@ class InputComplaintScreen extends StatefulWidget {
 }
 
 class _InputComplaintScreenState extends State<InputComplaintScreen> {
+  final _addServiceController = TextEditingController();
+
   final List<String> _services = [
     'Konsultasi Dokter Spesialis',
     'Konsultasi Dokter Umum',
@@ -21,6 +23,12 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
   ];
   final Set<String> _selectedServices = {};
   int? _diagnosisGroupValue = 2;
+
+  @override
+  void dispose() {
+    _addServiceController.dispose();
+    super.dispose();
+  }
 
   void _toggleService(String service) {
     setState(() {
@@ -32,6 +40,17 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
     });
   }
 
+  void _addNewService() {
+    final String newService = _addServiceController.text.trim();
+    if (newService.isNotEmpty && !_services.contains(newService)) {
+      setState(() {
+        _services.add(newService);
+      });
+      _addServiceController.clear();
+      FocusScope.of(context).unfocus();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -39,6 +58,7 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
     final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         backgroundColor: colorScheme.surface,
@@ -82,13 +102,12 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
                       style: textTheme.bodyMedium?.copyWith(
                           color: colorScheme.onSurface.withValues(alpha: 0.6))),
                   const SizedBox(height: 16),
-                  for (final service in _services)
-                    ServiceSelectionTile(
-                      title: service,
-                      isSelected: _selectedServices.contains(service),
-                      onTap: () => _toggleService(service),
-                    ),
-                  _buildAddServiceButton(context, theme),
+                  ..._services.map((service) => ServiceSelectionTile(
+                        title: service,
+                        isSelected: _selectedServices.contains(service),
+                        onTap: () => _toggleService(service),
+                      )),
+                  _buildAddServiceField(theme),
                 ],
               ),
             ),
@@ -145,22 +164,35 @@ class _InputComplaintScreenState extends State<InputComplaintScreen> {
     );
   }
 
-  Widget _buildAddServiceButton(BuildContext context, ThemeData theme) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        margin: const EdgeInsets.only(bottom: 12),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: theme.dividerColor),
-        ),
-        child: Text(
-          "Tambah +",
-          style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+  Widget _buildAddServiceField(ThemeData theme) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: TextField(
+        controller: _addServiceController,
+        cursorColor: theme.colorScheme.tertiary,
+        decoration: InputDecoration(
+          hintText: "Tambah layanan lain...",
+          hintStyle: TextStyle(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+          filled: true,
+          fillColor: theme.colorScheme.surface,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: theme.dividerColor),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: theme.dividerColor),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide:
+                BorderSide(color: theme.colorScheme.tertiary, width: 1.5),
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(Iconsax.add_circle, color: theme.colorScheme.tertiary),
+            onPressed: _addNewService,
+          ),
         ),
       ),
     );

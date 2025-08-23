@@ -24,6 +24,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
     final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         backgroundColor: colorScheme.surface,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../estimation/presentation/pages/input_complaint_screen.dart';
 import '../../../history/presentation/pages/history_screen.dart';
 import '../../../home/presentation/pages/home_screen.dart';
@@ -42,6 +41,7 @@ class _MainScreenState extends State<MainScreen> {
     final ThemeData theme = Theme.of(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _pages[_selectedIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {

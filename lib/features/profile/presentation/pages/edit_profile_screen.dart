@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../estimation/presentation/widgets/custom_dropdown_field.dart';
 import '../../../estimation/presentation/widgets/custom_input_field.dart';
 
@@ -24,6 +23,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         backgroundColor: colorScheme.surface,

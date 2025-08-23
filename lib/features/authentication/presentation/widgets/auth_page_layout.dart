@@ -24,6 +24,7 @@ class AuthPageLayout extends StatelessWidget {
     ).merge(theme.elevatedButtonTheme.style);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: theme.scaffoldBackgroundColor,
       body: Column(
         children: [

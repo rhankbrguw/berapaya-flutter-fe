@@ -4,8 +4,23 @@ import 'package:iconsax/iconsax.dart';
 import '../widgets/recommendation_class_card.dart';
 import 'hospital_recommendation_screen.dart';
 
-class RecommendationClassScreen extends StatelessWidget {
+class RecommendationClassScreen extends StatefulWidget {
   const RecommendationClassScreen({super.key});
+
+  @override
+  State<RecommendationClassScreen> createState() =>
+      _RecommendationClassScreenState();
+}
+
+class _RecommendationClassScreenState extends State<RecommendationClassScreen> {
+  String _selectedClass = "Golongan A";
+
+  void _handleClassSelection(String className) {
+    setState(() {
+      _selectedClass = className;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -38,20 +53,31 @@ class RecommendationClassScreen extends StatelessWidget {
                   color: colorScheme.onSurface.withValues(alpha: 0.6)),
             ),
             const SizedBox(height: 24),
-            const RecommendationClassCard(
-              className: "Golongan A",
-              price: "Rp370.000",
-              originalPrice: "Rp680.000",
-              isBest: true,
+            GestureDetector(
+              onTap: () => _handleClassSelection("Golongan A"),
+              child: RecommendationClassCard(
+                className: "Golongan A",
+                price: "Rp370.000",
+                originalPrice: "Rp680.000",
+                isBest: _selectedClass == "Golongan A",
+              ),
             ),
-            const RecommendationClassCard(
-              className: "Golongan B",
-              price: "Rp250.000",
-              discount: "-53% discount",
+            GestureDetector(
+              onTap: () => _handleClassSelection("Golongan B"),
+              child: RecommendationClassCard(
+                className: "Golongan B",
+                price: "Rp250.000",
+                discount: "-53% discount",
+                isBest: _selectedClass == "Golongan B",
+              ),
             ),
-            const RecommendationClassCard(
-              className: "Golongan C",
-              price: "Rp100.000",
+            GestureDetector(
+              onTap: () => _handleClassSelection("Golongan C"),
+              child: RecommendationClassCard(
+                className: "Golongan C",
+                price: "Rp100.000",
+                isBest: _selectedClass == "Golongan C",
+              ),
             ),
             const SizedBox(height: 24),
             _buildInfoBox(context, theme),
