@@ -22,7 +22,7 @@ class HistoryScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "Riwayat Estimasi",
-          style: textTheme.titleLarge?.copyWith(
+          style: textTheme.headlineSmall?.copyWith(
               color: colorScheme.onSurface, fontWeight: FontWeight.bold),
         ),
       ),
