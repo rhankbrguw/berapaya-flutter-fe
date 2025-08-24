@@ -19,19 +19,21 @@ class HospitalDetailScreen extends StatelessWidget {
             pinned: true,
             backgroundColor: theme.primaryColor,
             leading: IconButton(
-              icon: const Icon(Iconsax.arrow_left_2, color: Colors.white),
+              icon: Icon(Iconsax.arrow_left_2,
+                  color: theme.colorScheme.onPrimary),
               onPressed: () => Navigator.of(context).pop(),
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Text(
                 "RS Ukrida",
-                style: textTheme.titleLarge?.copyWith(color: Colors.white),
+                style: textTheme.titleLarge
+                    ?.copyWith(color: theme.colorScheme.onPrimary),
               ),
               background: Image.network(
                 "https://images.unsplash.com/photo-1574786700282-AC5a14f2db63?q=80&w=1974&auto=format&fit=crop",
                 fit: BoxFit.cover,
-                color: Colors.black.withValues(alpha: 0.4),
+                color: theme.colorScheme.onPrimary.withValues(alpha: 0.4),
                 colorBlendMode: BlendMode.darken,
               ),
             ),

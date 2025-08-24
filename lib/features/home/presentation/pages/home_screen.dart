@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../profile/presentation/pages/settings_screen.dart';
 import '../widgets/recent_activity_card.dart';
+import './notification_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,7 +25,13 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Iconsax.notification, color: colorScheme.onSurface),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const NotificationScreen()),
+              );
+            },
           ),
           IconButton(
             icon: Icon(Iconsax.setting_2, color: colorScheme.onSurface),
