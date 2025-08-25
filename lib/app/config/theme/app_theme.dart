@@ -45,7 +45,7 @@ class AppTheme {
         primary: AppColors.accentBlue,
         secondary: AppColors.secondaryTeal,
         tertiary: AppColors.accentBlue,
-        surface: Color.fromARGB(255, 2, 40, 46),
+        surface: Color.fromARGB(255, 0, 37, 44),
         error: AppColors.redError,
         onPrimary: AppColors.darkestText,
         onSecondary: AppColors.white,
